@@ -14,10 +14,12 @@ public:
     DefaultPacketHandlerContext(DefaultPacketPipeline *pipeline, const std::string &name, PacketHandler *handler) :
             AbstractPacketHandlerContext(pipeline, name, false, false)
     {
-        this->handler = handler;
+        this->_handler = handler;
     }
+
+    virtual PacketHandler *handler() {return _handler;};
 private:
-    PacketHandler *handler;
+    PacketHandler *_handler;
 };
 
 #endif //VIP_DEFAULTPACKETHANDLERCONTEXT_H
