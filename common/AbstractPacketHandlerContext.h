@@ -20,6 +20,7 @@ public:
     std::string getName() {return name;}
 
     virtual PacketHandlerContext *firePacketReadComplete();
+//    virtual PacketHandler *handler();
 
     static void invokePacketReadComplete(AbstractPacketHandlerContext *next);
 public:

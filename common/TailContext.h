@@ -13,6 +13,8 @@ class TailContext : public AbstractPacketHandlerContext
 {
 public:
     TailContext(DefaultPacketPipeline *pipeline);
+
+    virtual PacketHandler *handler() {return nullptr;}
 };
 
 

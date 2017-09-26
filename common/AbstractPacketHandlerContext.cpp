@@ -23,20 +23,27 @@ PacketHandlerContext *AbstractPacketHandlerContext::firePacketReadComplete()
 
 void AbstractPacketHandlerContext::invokePacketReadComplete(AbstractPacketHandlerContext *next)
 {
+    if(next->handler() != nullptr)
+    {
+        std::cout << next->handler()->getName().c_str() << std::endl;
+    }
+
     next->invokeChannelReadComplete();
 }
 
 
 void AbstractPacketHandlerContext::invokeChannelReadComplete()
 {
-    std::cout << getName().c_str() <<std::endl;
+    invokePacketReadComplete(findContextInbound());
 }
 
 AbstractPacketHandlerContext *AbstractPacketHandlerContext::findContextInbound() {
     AbstractPacketHandlerContext *ctx = this;
     do {
-        ctx = ctx->prev;
+        ctx = ctx->next;
     } while (!ctx->outbound);
     return ctx;
 }
 
+
+//PacketHandler* AbstractPacketHandlerContext::handler() {return nullptr;}

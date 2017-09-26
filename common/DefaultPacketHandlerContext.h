@@ -11,8 +11,8 @@
 class DefaultPacketHandlerContext : public AbstractPacketHandlerContext
 {
 public:
-    DefaultPacketHandlerContext(DefaultPacketPipeline *pipeline, const std::string &name, PacketHandler *handler) :
-            AbstractPacketHandlerContext(pipeline, name, false, false)
+    DefaultPacketHandlerContext(DefaultPacketPipeline *pipeline, const std::string &name, PacketHandler *handler, bool inbound) :
+            AbstractPacketHandlerContext(pipeline, name, inbound, inbound ? false : true)
     {
         this->_handler = handler;
     }

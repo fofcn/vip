@@ -13,8 +13,8 @@ class DefaultPacketPipeline : public PacketPipeline, public PacketInboundInvoker
 public:
     DefaultPacketPipeline();
 public:
-    virtual PacketPipeline *addLast(PacketHandler *handler);
-    virtual PacketPipeline *addLast(std::string name, PacketHandler *handler);
+    virtual PacketPipeline *addLast(PacketHandler *handler, bool inbound);
+    virtual PacketPipeline *addLast(std::string name, PacketHandler *handler, bool inbound);
     virtual void print();
 
     virtual PacketInboundInvoker *firePacketReadComplete();

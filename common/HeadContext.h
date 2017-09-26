@@ -13,6 +13,7 @@ class HeadContext : public AbstractPacketHandlerContext
 {
 public:
     HeadContext(DefaultPacketPipeline *pipeline);
+    virtual PacketHandler *handler();
 };
 
 

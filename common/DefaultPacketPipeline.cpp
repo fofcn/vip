@@ -18,14 +18,14 @@ DefaultPacketPipeline::DefaultPacketPipeline()
     tail->next = head;
 }
 
-PacketPipeline *DefaultPacketPipeline::addLast(PacketHandler *handler)
+PacketPipeline *DefaultPacketPipeline::addLast(PacketHandler *handler, bool inbound)
 {
-    addLast(handler->getName(), handler);
+    addLast(handler->getName(), handler, inbound);
 }
 
-PacketPipeline *DefaultPacketPipeline::addLast(std::string name, PacketHandler *handler)
+PacketPipeline *DefaultPacketPipeline::addLast(std::string name, PacketHandler *handler, bool inbound)
 {
-    AbstractPacketHandlerContext *newCtx = new DefaultPacketHandlerContext(this, name, handler);
+    AbstractPacketHandlerContext *newCtx = new DefaultPacketHandlerContext(this, name, handler, inbound);
 
     AbstractPacketHandlerContext *prev = tail->prev;
     prev->next = newCtx;

@@ -19,17 +19,19 @@ public:
     /**
      * 添加一个Handler到末尾
      * @param handler
+     * @param inbound
      * @return
      */
-    virtual PacketPipeline *addLast(PacketHandler *handler) = 0;
+    virtual PacketPipeline *addLast(PacketHandler *handler, bool inbound) = 0;
 
     /**
      * 添加一个handler到末尾
      * @param name
      * @param handler
+     * @param inbound
      * @return
      */
-    virtual PacketPipeline *addLast(std::string name, PacketHandler *handler) = 0;
+    virtual PacketPipeline *addLast(std::string name, PacketHandler *handler, bool inbound) = 0;
 
     /**
      * 打印所有handler名称

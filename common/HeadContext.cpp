@@ -7,3 +7,5 @@
 
 HeadContext::HeadContext(DefaultPacketPipeline *pipeline)
         : AbstractPacketHandlerContext(pipeline, "head", false, true) {}
+
+PacketHandler *HeadContext::handler() {return NULL;}
