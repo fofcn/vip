@@ -6,24 +6,35 @@
 #define VIP_PACKETPIPELINE_H
 
 #include "PacketHandler.h"
+#include "PacketInboundInvoker.h"
+#include "AbstractPacketHandlerContext.h"
+#include "PacketOutboundHandler.h"
+#include "PacketInboundHandler.h"
+
+class AbstractPacketHandlerContext;
 
 class PacketPipeline
 {
 public:
+    /**
+     * 添加一个Handler到末尾
+     * @param handler
+     * @return
+     */
     virtual PacketPipeline *addLast(PacketHandler *handler) = 0;
-    virtual void print() = 0;
-public:
-    PacketHandler *head;
-    PacketHandler *tail;
-};
 
-class DefaultPacketPipeline : public PacketPipeline
-{
-public:
-    DefaultPacketPipeline();
-public:
-    virtual PacketPipeline *addLast(PacketHandler *handler);
-    virtual void print();
+    /**
+     * 添加一个handler到末尾
+     * @param name
+     * @param handler
+     * @return
+     */
+    virtual PacketPipeline *addLast(std::string name, PacketHandler *handler) = 0;
+
+    /**
+     * 打印所有handler名称
+     */
+    virtual void print() = 0;
 };
 
 #endif //VIP_PACKETPIPELINE_H

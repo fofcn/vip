@@ -11,6 +11,7 @@ class PacketHandler
 {
 public:
     virtual std::string getName() = 0;
+public:
     PacketHandler *next;
     PacketHandler *prev;
 };
