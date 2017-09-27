@@ -1,19 +1,33 @@
 #include <iostream>
 
-#include "common/PacketPipeline.h"
-#include "common/DefaultPacketPipeline.h"
+//#include "common/PacketPipeline.h"
+//#include "common/DefaultPacketPipeline.h"
+
+#include "handler/PacketChannelHandler.h"
+#include "handler/PacketChannelPipeline.h"
+#include "handler/DefaultPacketChannelPipeline.h"
 
 int main(int argc, char **argv)
 {
-    DefaultPacketHandler handler1("handler1");
-    DefaultPacketHandler handler2("handler2");
+//    DefaultPacketHandler handler1("handler1");
+//    DefaultPacketHandler handler2("handler2");
+//
+//    DefaultPacketPipeline pipeline;
+//    pipeline.addLast(&handler1, false);
+//    pipeline.addLast(&handler2, false);
+//    pipeline.firePacketReadComplete();
+//
+//    pipeline.print();
 
-    DefaultPacketPipeline pipeline;
-    pipeline.addLast(&handler1, false);
-    pipeline.addLast(&handler2, false);
-    pipeline.firePacketReadComplete();
+    DefaultChannelHandler handler1("handler1");
+    DefaultChannelHandler handler2("handler2");
+
+    DefaultPacketChannelPipeline pipeline;
+    pipeline.addLast(&handler1)->addLast(&handler2);
 
     pipeline.print();
+
+    pipeline.fireReadComplete();
     return 0;
 }
 

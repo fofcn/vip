@@ -8,11 +8,11 @@
 #include "PacketHandler.h"
 #include "PacketOutboundHandler.h"
 #include "PacketInboundHandler.h"
+#include "AbstractPacketHandlerContext.h"
 
 class PacketHandlerContext
 {
 public:
-    virtual PacketHandlerContext *firePacketReadComplete() = 0;
     virtual PacketHandler *handler() = 0;
 };
 
