@@ -7,6 +7,7 @@
 AbstractPacketHandlerContext::AbstractPacketHandlerContext(DefaultPacketPipeline *pipeline, std::string name,
                                                            bool inbound, bool outbound)
 {
+    last = false;
     this->pipeline = pipeline;
     this->name = name;
     this->inbound = inbound;
@@ -23,7 +24,7 @@ PacketHandlerContext *AbstractPacketHandlerContext::firePacketReadComplete()
 
 void AbstractPacketHandlerContext::invokePacketReadComplete(AbstractPacketHandlerContext *next)
 {
-    if(next->handler() != nullptr)
+    if(next != nullptr && next->handler() != nullptr)
     {
         std::cout << next->handler()->getName().c_str() << std::endl;
     }
@@ -41,7 +42,15 @@ AbstractPacketHandlerContext *AbstractPacketHandlerContext::findContextInbound()
     AbstractPacketHandlerContext *ctx = this;
     do {
         ctx = ctx->next;
-    } while (!ctx->outbound);
+        if(ctx->inbound)
+            break;
+    } while (!ctx->isLast());
+
+    if(!ctx->inbound)
+    {
+        return nullptr;
+    }
+
     return ctx;
 }
 

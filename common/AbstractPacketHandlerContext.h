@@ -17,16 +17,18 @@ public:
 
     void setInbound(bool inOrOut) {inbound = inOrOut;}
     void setOutbound(bool inOrOut) {outbound = inOrOut;}
+    void setLast(bool isLast) {last = isLast;};
+    bool isLast() {return last;}
     std::string getName() {return name;}
 
     virtual PacketHandlerContext *firePacketReadComplete();
-//    virtual PacketHandler *handler();
 
     static void invokePacketReadComplete(AbstractPacketHandlerContext *next);
 public:
     AbstractPacketHandlerContext *next;
     AbstractPacketHandlerContext *prev;
 private:
+    bool last;
     bool inbound;
     bool outbound;
     DefaultPacketPipeline *pipeline;

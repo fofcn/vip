@@ -9,6 +9,8 @@
 
 DefaultPacketPipeline::DefaultPacketPipeline()
 {
+    size = 0;
+
     head = new HeadContext(this);
     tail = new TailContext(this);
 
@@ -28,10 +30,18 @@ PacketPipeline *DefaultPacketPipeline::addLast(std::string name, PacketHandler *
     AbstractPacketHandlerContext *newCtx = new DefaultPacketHandlerContext(this, name, handler, inbound);
 
     AbstractPacketHandlerContext *prev = tail->prev;
+    if(size > 0)
+    {
+        prev->setLast(false);
+        newCtx->setLast(true);
+    }
+
     prev->next = newCtx;
     newCtx->prev = prev;
     newCtx->next = tail;
     tail->prev = newCtx;
+
+    size ++;
 }
 
 void DefaultPacketPipeline::print()
@@ -51,4 +61,13 @@ PacketInboundInvoker *DefaultPacketPipeline::firePacketReadComplete()
 //    std::cout << next->getName().c_str() << std::endl;
     AbstractPacketHandlerContext::invokePacketReadComplete(head);
     return this;
+}
+
+DefaultPacketPipeline::~DefaultPacketPipeline()
+{
+    if(head != NULL)
+    {
+        delete head;
+        head = NULL;
+    }
 }

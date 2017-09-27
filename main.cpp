@@ -9,8 +9,8 @@ int main(int argc, char **argv)
     DefaultPacketHandler handler2("handler2");
 
     DefaultPacketPipeline pipeline;
-    pipeline.addLast(&handler1, true);
-    pipeline.addLast(&handler2, true);
+    pipeline.addLast(&handler1, false);
+    pipeline.addLast(&handler2, false);
     pipeline.firePacketReadComplete();
 
     pipeline.print();

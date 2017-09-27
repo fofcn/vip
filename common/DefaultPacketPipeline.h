@@ -12,6 +12,7 @@ class DefaultPacketPipeline : public PacketPipeline, public PacketInboundInvoker
 {
 public:
     DefaultPacketPipeline();
+    ~DefaultPacketPipeline();
 public:
     virtual PacketPipeline *addLast(PacketHandler *handler, bool inbound);
     virtual PacketPipeline *addLast(std::string name, PacketHandler *handler, bool inbound);
@@ -25,6 +26,8 @@ private:
 private:
     AbstractPacketHandlerContext *head;
     AbstractPacketHandlerContext *tail;
+
+    int size;
 };
 
 #endif //VIP_DEFAULTPACKETPIPELINE_H

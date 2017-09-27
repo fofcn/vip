@@ -6,6 +6,8 @@
 #define VIP_PACKETHANDLERCONTEXT_H
 
 #include "PacketHandler.h"
+#include "PacketOutboundHandler.h"
+#include "PacketInboundHandler.h"
 
 class PacketHandlerContext
 {
