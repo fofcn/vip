@@ -1,0 +1,99 @@
+// VipDemo.cpp : Defines the entry point for the console application.
+//
+
+#include <stdlib.h>
+#include <string.h>
+#include <sys/types.h>
+
+#include <Winsock2.h>
+
+#include "stdafx.h"
+#include "pcap.h"
+
+#include "../../../protocol/ProtocolHeader.h"
+
+bool bigEndian = false;
+
+static void testEndian()
+{
+	short s = 0x0102;
+
+
+}
+
+static void countme(u_char *user, const struct pcap_pkthdr *h, const u_char *sp);
+
+int main(int argc, char**  argv)
+{
+	testEndian();
+
+	pcap_if_t *alldevs;
+	pcap_if_t *d;
+	bpf_u_int32 net, mask;
+	int exit_status = 0;
+	char errbuf[PCAP_ERRBUF_SIZE + 1];
+
+	int ret = pcap_findalldevs(&alldevs, errbuf);
+	if (ret == -1)
+	{
+		fprintf(stderr, "Error in pcap_findalldevs: %s\n", errbuf);
+		exit(1);
+	}
+
+	int i = 0;
+	for (d = alldevs; d; d = d->next, i++)
+	{
+		printf("%s    %s\n", d->name, d->description);
+		if (i == 2)
+		{
+			break;
+		}
+	}
+
+	pcap_t *pd = pcap_create(d->name, errbuf);
+	if (pd == nullptr)
+	{
+		printf("%s", errbuf);
+		return -1;
+	}
+	int status;
+
+	status = pcap_activate(pd);
+
+	
+	int packet_count;
+	for (;;)
+	{
+		packet_count = 0;
+		status = pcap_dispatch(pd, -1, countme,
+			(u_char *)&packet_count);
+		if (status < 0)
+			break;
+		if (status != 0) {
+			printf("%d packets seen, %d packets counted after pcap_dispatch returns\n",
+				status, packet_count);
+		}
+	}
+    return 0;
+}
+
+static void countme(u_char *user, const struct pcap_pkthdr *h, const u_char *packet)
+{
+	int *counterp = (int *)user;
+
+	ether_header *eth = (ether_header *)packet;
+
+	ushort type = ntohs(eth->ether_type);
+
+	switch (type)
+	{
+	case 0x0800:
+		break;
+	case 0x0806:
+		break;
+	defaut:
+		printf("Sorry, we will support this protocol soon.");
+	}
+	printf("ethernet type: 0x%04x\n", type);
+	(*counterp)++;
+}

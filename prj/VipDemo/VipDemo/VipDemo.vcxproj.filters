@@ -1,0 +1,114 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="Header Files\pcap">
+      <UniqueIdentifier>{31c3b2f7-089d-4262-97ed-1ebb6b5d3b61}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\handler">
+      <UniqueIdentifier>{bf824874-8c30-455e-8e08-7c33f9d8b84a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\protocol">
+      <UniqueIdentifier>{5611572b-38da-455e-bd63-c81496c917b0}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="ReadMe.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\..\pcap\Device.h">
+      <Filter>Header Files\pcap</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\pcap\Packet.h">
+      <Filter>Header Files\pcap</Filter>
+    </ClInclude>
+    <ClInclude Include="stdafx.h">
+      <Filter>Header Files\pcap</Filter>
+    </ClInclude>
+    <ClInclude Include="targetver.h">
+      <Filter>Header Files\pcap</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\handler\AbstractPacketChannelHandlerContext.h">
+      <Filter>Source Files\handler</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\handler\DefaultPacketChannelPipeline.h">
+      <Filter>Source Files\handler</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\handler\PacketChannel.h">
+      <Filter>Source Files\handler</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\handler\PacketChannelHandler.h">
+      <Filter>Source Files\handler</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\handler\PacketChannelHandlerContext.h">
+      <Filter>Source Files\handler</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\handler\PacketChannelInboundHandler.h">
+      <Filter>Source Files\handler</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\handler\PacketChannelInboundInvoker.h">
+      <Filter>Source Files\handler</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\handler\PacketChannelOutboundInvoker.h">
+      <Filter>Source Files\handler</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\handler\PacketChannelPipeline.h">
+      <Filter>Source Files\handler</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\protocol\ProtocolHeader.h">
+      <Filter>Header Files\protocol</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="stdafx.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="VipDemo.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\pcap\Device.cpp">
+      <Filter>Header Files\pcap</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\pcap\Packet.cpp">
+      <Filter>Header Files\pcap</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\handler\AbstractPacketChannelHandlerContext.cpp">
+      <Filter>Source Files\handler</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\handler\DefaultPacketChannelPipeline.cpp">
+      <Filter>Source Files\handler</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\handler\PacketChannel.cpp">
+      <Filter>Source Files\handler</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\handler\PacketChannelHandler.cpp">
+      <Filter>Source Files\handler</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\handler\PacketChannelHandlerContext.cpp">
+      <Filter>Source Files\handler</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\handler\PacketChannelInboundHandler.cpp">
+      <Filter>Source Files\handler</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\handler\PacketChannelInboundInvoker.cpp">
+      <Filter>Source Files\handler</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\handler\PacketChannelOutboundInvoker.cpp">
+      <Filter>Source Files\handler</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\handler\PacketChannelPipeline.cpp">
+      <Filter>Source Files\handler</Filter>
+    </ClCompile>
+  </ItemGroup>
+</Project>

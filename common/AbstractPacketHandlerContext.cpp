@@ -16,11 +16,11 @@ AbstractPacketHandlerContext::AbstractPacketHandlerContext(DefaultPacketPipeline
     prev = NULL;
 }
 
-PacketHandlerContext *AbstractPacketHandlerContext::firePacketReadComplete()
-{
-    invokePacketReadComplete(findContextInbound());
-    return this;
-}
+//PacketHandlerContext *AbstractPacketHandlerContext::firePacketReadComplete()
+//{
+//    invokePacketReadComplete(findContextInbound());
+//    return nullptr;
+//}
 
 void AbstractPacketHandlerContext::invokePacketReadComplete(AbstractPacketHandlerContext *next)
 {

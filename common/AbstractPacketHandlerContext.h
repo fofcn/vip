@@ -7,10 +7,11 @@
 
 #include "PacketPipeline.h"
 #include "PacketHandlerContext.h"
+#include "DefaultPacketPipeline.h"
 
 class DefaultPacketPipeline;
 
-class AbstractPacketHandlerContext : public PacketHandlerContext
+class AbstractPacketHandlerContext
 {
 public:
     AbstractPacketHandlerContext(DefaultPacketPipeline *pipeline, std::string name, bool inbound, bool outbound);
@@ -21,7 +22,7 @@ public:
     bool isLast() {return last;}
     std::string getName() {return name;}
 
-    virtual PacketHandlerContext *firePacketReadComplete();
+    virtual PacketHandler *handler() {return nullptr;};
 
     static void invokePacketReadComplete(AbstractPacketHandlerContext *next);
 public:

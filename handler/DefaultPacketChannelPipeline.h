@@ -13,9 +13,9 @@ class DefaultPacketChannelPipeline : public PacketChannelPipeline
 public:
     virtual PacketChannelPipeline *addLast(PacketChannelHandler *handler);
     virtual void print();
-    virtual void fireReadComplete();
-
-    void invokeReadComplete(PacketChannelHandler *next);
+    virtual void fireChannelRead(Packet *p);
+private:
+    void invokeChannelRead(PacketChannelHandler *next, Packet *p);
 };
 
 

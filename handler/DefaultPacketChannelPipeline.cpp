@@ -26,16 +26,16 @@ void DefaultPacketChannelPipeline::print()
 }
 
 
-void DefaultPacketChannelPipeline::fireReadComplete()
+void DefaultPacketChannelPipeline::fireChannelRead(Packet *p)
 {
-    invokeReadComplete(head);
+    invokeChannelRead(head, p);
 }
 
-void DefaultPacketChannelPipeline::invokeReadComplete(PacketChannelHandler *next)
+void DefaultPacketChannelPipeline::invokeChannelRead(PacketChannelHandler *next, Packet *p)
 {
     if(next != nullptr)
     {
-        next->fireReadComplete();
-        invokeReadComplete(next->next);
+        next->channelRead(p);
+        invokeChannelRead(next->next, p);
     }
 }
