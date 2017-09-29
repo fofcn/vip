@@ -11,7 +11,8 @@
 class PacketChannelHandler
 {
 public:
-    virtual std::string getName() = 0;
+	PacketChannelHandler() : next(nullptr), prev(nullptr) {}
+	virtual std::string getName() { return name; };
     virtual void channelRead(Packet *p) = 0;
     virtual void write(Packet p) = 0;
 protected:

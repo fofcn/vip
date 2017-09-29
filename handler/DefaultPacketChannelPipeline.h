@@ -5,7 +5,6 @@
 #ifndef VIP_DEFAULTPACKETCHANNELPIPELINE_H
 #define VIP_DEFAULTPACKETCHANNELPIPELINE_H
 
-
 #include "PacketChannelPipeline.h"
 
 class DefaultPacketChannelPipeline : public PacketChannelPipeline

@@ -22,6 +22,9 @@
     <Filter Include="Header Files\protocol">
       <UniqueIdentifier>{5611572b-38da-455e-bd63-c81496c917b0}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\protocol\tcpip">
+      <UniqueIdentifier>{b616ce0d-d0bb-4fb8-8a13-dde51323c370}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <Text Include="ReadMe.txt" />
@@ -69,11 +72,14 @@
     <ClInclude Include="..\..\..\protocol\ProtocolHeader.h">
       <Filter>Header Files\protocol</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\..\protocol\tcpip\EthernetHandler.h">
+      <Filter>Header Files\protocol\tcpip</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\protocol\tcpip\IpHandler.h">
+      <Filter>Header Files\protocol\tcpip</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="stdafx.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="VipDemo.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -109,6 +115,15 @@
     </ClCompile>
     <ClCompile Include="..\..\..\handler\PacketChannelPipeline.cpp">
       <Filter>Source Files\handler</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\protocol\tcpip\EthernetHandler.cpp">
+      <Filter>Header Files\protocol\tcpip</Filter>
+    </ClCompile>
+    <ClCompile Include="stdafx.cpp">
+      <Filter>Header Files\protocol\tcpip</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\protocol\tcpip\IpHandler.cpp">
+      <Filter>Header Files\protocol\tcpip</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

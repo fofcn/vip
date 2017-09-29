@@ -18,7 +18,7 @@ int main1(int argc, char **argv)
 //    pipeline.firePacketReadComplete();
 //
 //    pipeline.print();
-    Packet p;
+    Packet p((uchar *)"");
     p.content = "123";
     DefaultChannelHandler handler1("handler1");
     DefaultChannelHandler handler2("handler2");
@@ -87,7 +87,7 @@ win32_strerror(DWORD error)
     errbuf[errlen - 2] = '\0';
   }
   p = strchr(errbuf, '\0');
-  pcap_snprintf(p, ERRBUF_SIZE+1-(p-errbuf), " (%lu)", error);
+//  pcap_snprintf(p, ERRBUF_SIZE+1-(p-errbuf), " (%lu)", error);
   return errbuf;
 }
 
@@ -278,14 +278,14 @@ static int ifprint(pcap_if_t *d)
         printf("\tDescription: %s\n",d->description);
     printf("\tFlags: ");
     sep = "";
-    if (d->flags & PCAP_IF_UP) {
-        printf("%sUP", sep);
-        sep = ", ";
-    }
-    if (d->flags & PCAP_IF_RUNNING) {
-        printf("%sRUNNING", sep);
-        sep = ", ";
-    }
+//    if (d->flags & PCAP_IF_UP) {
+//        printf("%sUP", sep);
+//        sep = ", ";
+//    }
+//    if (d->flags & PCAP_IF_RUNNING) {
+//        printf("%sRUNNING", sep);
+//        sep = ", ";
+//    }
     if (d->flags & PCAP_IF_LOOPBACK) {
         printf("%sLOOPBACK", sep);
         sep = ", ";

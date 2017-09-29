@@ -23,14 +23,14 @@
     <ProjectGuid>{7128E0B5-0842-40EE-9495-4830233AA70A}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
     <RootNamespace>VipDemo</RootNamespace>
-    <WindowsTargetPlatformVersion>8.1</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformVersion>10.0.15063.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
     <PlatformToolset>v141</PlatformToolset>
-    <CharacterSet>Unicode</CharacterSet>
+    <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
@@ -72,7 +72,7 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>C:\Users\error\Downloads\WpdPack\Include;$(IncludePath)</IncludePath>
+    <IncludePath>F:\github.com\fofcn\vip\vip;C:\Users\error\Downloads\WpdPack\Include;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
@@ -88,7 +88,7 @@
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
-      <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>LITTLE_ENDIAN;WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
     </ClCompile>
     <Link>
@@ -161,6 +161,8 @@
     <ClInclude Include="..\..\..\pcap\Device.h" />
     <ClInclude Include="..\..\..\pcap\Packet.h" />
     <ClInclude Include="..\..\..\protocol\ProtocolHeader.h" />
+    <ClInclude Include="..\..\..\protocol\tcpip\EthernetHandler.h" />
+    <ClInclude Include="..\..\..\protocol\tcpip\IpHandler.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="targetver.h" />
   </ItemGroup>
@@ -176,6 +178,8 @@
     <ClCompile Include="..\..\..\handler\PacketChannelPipeline.cpp" />
     <ClCompile Include="..\..\..\pcap\Device.cpp" />
     <ClCompile Include="..\..\..\pcap\Packet.cpp" />
+    <ClCompile Include="..\..\..\protocol\tcpip\EthernetHandler.cpp" />
+    <ClCompile Include="..\..\..\protocol\tcpip\IpHandler.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>

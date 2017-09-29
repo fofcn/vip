@@ -12,10 +12,13 @@
 class Packet
 {
 public:
-	Packet(uchar *p) : p(p) {}
+	Packet(uchar *p) : p(p), start(p) {}
+	uchar *getP() { return p; }
+	void moveToIpStart() { p += 14; }
     std::string content;
 private:
 	uchar *p;
+	uchar *start;
 };
 
 

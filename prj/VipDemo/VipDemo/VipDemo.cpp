@@ -1,31 +1,24 @@
 // VipDemo.cpp : Defines the entry point for the console application.
 //
 
-#include <stdlib.h>
-#include <string.h>
-#include <sys/types.h>
-
 #include <Winsock2.h>
 
-#include "stdafx.h"
+#include "handler/DefaultPacketChannelPipeline.h"
 #include "pcap.h"
+#include "protocol/ProtocolHeader.h"
+#include "pcap/Device.h"
+#include "protocol/tcpip/EthernetHandler.h"
+#include "protocol/tcpip/IpHandler.h"
 
-#include "../../../protocol/ProtocolHeader.h"
+DefaultPacketChannelPipeline ethIpTcpPipeline;
+DefaultPacketChannelPipeline ethArpTcpPipeline;
 
-bool bigEndian = false;
-
-static void testEndian()
-{
-	short s = 0x0102;
-
-
-}
-
-static void countme(u_char *user, const struct pcap_pkthdr *h, const u_char *sp);
+static void countme(u_char *user, const struct pcap_pkthdr *h, const u_char *packet);
 
 int main(int argc, char**  argv)
 {
-	testEndian();
+	EthernetHandler ethernetHandler("ethernet");
+	ethIpTcpPipeline.addLast(&ethernetHandler);
 
 	pcap_if_t *alldevs;
 	pcap_if_t *d;
@@ -60,7 +53,6 @@ int main(int argc, char**  argv)
 
 	status = pcap_activate(pd);
 
-	
 	int packet_count;
 	for (;;)
 	{
@@ -79,8 +71,7 @@ int main(int argc, char**  argv)
 
 static void countme(u_char *user, const struct pcap_pkthdr *h, const u_char *packet)
 {
-	int *counterp = (int *)user;
-
+	/*
 	ether_header *eth = (ether_header *)packet;
 
 	ushort type = ntohs(eth->ether_type);
@@ -95,5 +86,10 @@ static void countme(u_char *user, const struct pcap_pkthdr *h, const u_char *pac
 		printf("Sorry, we will support this protocol soon.");
 	}
 	printf("ethernet type: 0x%04x\n", type);
+	*/
+	Packet p((uchar *)packet);
+	ethIpTcpPipeline.fireChannelRead(&p);
+
+	int *counterp = (int *)user;
 	(*counterp)++;
 }
