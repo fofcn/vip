@@ -14,6 +14,8 @@ DefaultPacketChannelPipeline ethIpTcpPipeline;
 DefaultPacketChannelPipeline ethArpTcpPipeline;
 
 static void countme(u_char *user, const struct pcap_pkthdr *h, const u_char *packet);
+extern void print_ip(int ip);
+
 
 int main(int argc, char**  argv)
 {
@@ -50,8 +52,26 @@ int main(int argc, char**  argv)
 		return -1;
 	}
 	int status;
+	bpf_u_int32 localnet, netmask;
+	if (pcap_lookupnet(d->name, &localnet, &netmask, errbuf) < 0) {
+		localnet = 0;
+		netmask = 0;
+		printf("%s\n", errbuf);
+	}
 
+	print_ip(netmask);
+	netmask = ntohl(netmask);
+
+	struct bpf_program fcode;
+	
 	status = pcap_activate(pd);
+
+	/*if (pcap_compile(pd, &fcode, "ip host 192.168.2.138", 1, netmask) != 0)
+		printf("%s\n", pcap_geterr(pd));
+
+	if (pcap_setfilter(pd, &fcode) != 0)
+		printf("%s", pcap_geterr(pd));
+		*/
 
 	int packet_count;
 	for (;;)

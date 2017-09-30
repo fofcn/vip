@@ -161,8 +161,10 @@
     <ClInclude Include="..\..\..\pcap\Device.h" />
     <ClInclude Include="..\..\..\pcap\Packet.h" />
     <ClInclude Include="..\..\..\protocol\ProtocolHeader.h" />
+    <ClInclude Include="..\..\..\protocol\tcpip\ArpHandler.h" />
     <ClInclude Include="..\..\..\protocol\tcpip\EthernetHandler.h" />
     <ClInclude Include="..\..\..\protocol\tcpip\IpHandler.h" />
+    <ClInclude Include="..\..\..\protocol\tcpip\TcpHandler.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="targetver.h" />
   </ItemGroup>
@@ -178,8 +180,10 @@
     <ClCompile Include="..\..\..\handler\PacketChannelPipeline.cpp" />
     <ClCompile Include="..\..\..\pcap\Device.cpp" />
     <ClCompile Include="..\..\..\pcap\Packet.cpp" />
+    <ClCompile Include="..\..\..\protocol\tcpip\ArpHandler.cpp" />
     <ClCompile Include="..\..\..\protocol\tcpip\EthernetHandler.cpp" />
     <ClCompile Include="..\..\..\protocol\tcpip\IpHandler.cpp" />
+    <ClCompile Include="..\..\..\protocol\tcpip\TcpHandler.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>

@@ -78,11 +78,14 @@
     <ClInclude Include="..\..\..\protocol\tcpip\IpHandler.h">
       <Filter>Header Files\protocol\tcpip</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\..\protocol\tcpip\TcpHandler.h">
+      <Filter>Header Files\protocol\tcpip</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\protocol\tcpip\ArpHandler.h">
+      <Filter>Header Files\protocol\tcpip</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="VipDemo.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\..\pcap\Device.cpp">
       <Filter>Header Files\pcap</Filter>
     </ClCompile>
@@ -123,6 +126,15 @@
       <Filter>Header Files\protocol\tcpip</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\protocol\tcpip\IpHandler.cpp">
+      <Filter>Header Files\protocol\tcpip</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\protocol\tcpip\TcpHandler.cpp">
+      <Filter>Header Files\protocol\tcpip</Filter>
+    </ClCompile>
+    <ClCompile Include="VipDemo.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\protocol\tcpip\ArpHandler.cpp">
       <Filter>Header Files\protocol\tcpip</Filter>
     </ClCompile>
   </ItemGroup>

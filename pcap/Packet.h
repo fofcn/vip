@@ -14,7 +14,8 @@ class Packet
 public:
 	Packet(uchar *p) : p(p), start(p) {}
 	uchar *getP() { return p; }
-	void moveToIpStart() { p += 14; }
+	void moveToIpStart() { p = p + sizeof(struct ether_header); }
+	void moveToTcpStart() { p = p + sizeof(struct ip_hdr); }
     std::string content;
 private:
 	uchar *p;

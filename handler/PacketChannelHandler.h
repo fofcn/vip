@@ -6,12 +6,13 @@
 #define VIP_PACKETCHANNELHANDLER_H
 
 #include <iostream>
-#include "../pcap/Packet.h"
+#include "pcap/Packet.h"
 
 class PacketChannelHandler
 {
 public:
-	PacketChannelHandler() : next(nullptr), prev(nullptr) {}
+	PacketChannelHandler() {}
+	PacketChannelHandler(std::string name) : name(name), next(nullptr), prev(nullptr) {}
 	virtual std::string getName() { return name; };
     virtual void channelRead(Packet *p) = 0;
     virtual void write(Packet p) = 0;
@@ -27,7 +28,7 @@ public:
 class DefaultChannelHandler : public PacketChannelHandler
 {
 public:
-	DefaultChannelHandler(std::string name) {inbound = false; outbound = false; this->name = name; }
+	DefaultChannelHandler(std::string name) : PacketChannelHandler(name){inbound = false; outbound = false; this->name = name; }
     virtual std::string getName() {return name;}
     virtual void channelRead(Packet *p) {std::cout<< name.c_str()<<std::endl;p->content = "456," + p->content;}
     virtual void write(Packet p) {std::cout << p.content.c_str()<<std::endl;}

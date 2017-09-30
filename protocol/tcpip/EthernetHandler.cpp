@@ -3,11 +3,14 @@
 //
 #include <WinSock2.h>
 #include "EthernetHandler.h"
+#include "IpHandler.h"
+#include "ArpHandler.h"
 
 EthernetHandler::EthernetHandler(std::string name)
 {
 	this->name = name;
-	ipHandler = new IpHandler("Ip");
+	ipHandler = new IpHandler();
+	arpHandler = new ArpHandler();
 }
 
 EthernetHandler::~EthernetHandler()

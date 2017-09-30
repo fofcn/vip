@@ -8,11 +8,13 @@
 class IpHandler : public PacketChannelHandler
 {
 public:
-	IpHandler(std::string name);
+	IpHandler();
 	~IpHandler();
 
 	virtual void channelRead(Packet *p);
 	virtual void write(Packet p);
+private:
+	PacketChannelHandler *tcpHandler;
 };
 
 #endif
