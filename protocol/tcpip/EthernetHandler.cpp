@@ -37,6 +37,7 @@ void EthernetHandler::channelRead(Packet *p)
 		break;
 	case 0x0806:
 		std::cout << "arp" << std::endl;
+		this->next = arpHandler;
 		break;
 	defaut:
 		std::cout << "Sorry, we will support this protocol soon." << std::endl;

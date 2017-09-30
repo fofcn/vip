@@ -7,6 +7,8 @@
 
 #include "../Types.h"
 
+#define IPV4 (0x0800)
+
 #define ICMP 1
 #define TCP 6
 #define UDP 17
@@ -86,6 +88,25 @@ struct tcp_hdr
 };
 
 typedef struct tcp_hdr tcp_header;
+
+struct arp_hdr
+{
+#define HW_TYPE_ETH (1)
+	ushort hw_type;
+
+	ushort proto_type;
+	uchar hw_size;
+	uchar proto_size;
+#define ARP_REQUEST (1)
+#define ARP_REPLYL  (2)
+	ushort op_code;
+	uchar sender_mac[6];
+	uint sender_ip;
+	uchar target_mac[6];
+	uint target_ip;
+};
+
+typedef struct arp_hdr arp_header;
 
 #pragma pack()
 
