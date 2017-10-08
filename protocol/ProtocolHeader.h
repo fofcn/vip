@@ -7,6 +7,8 @@
 
 #include "../Types.h"
 
+#define MAC_LEN 6
+
 #define IPV4 (0x0800)
 
 #define ICMP 1
@@ -94,6 +96,7 @@ struct arp_hdr
 #define HW_TYPE_ETH (1)
 	ushort hw_type;
 
+	//IP or?
 	ushort proto_type;
 	uchar hw_size;
 	uchar proto_size;
