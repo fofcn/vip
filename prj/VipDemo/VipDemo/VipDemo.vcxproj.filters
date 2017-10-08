@@ -25,6 +25,9 @@
     <Filter Include="Header Files\protocol\tcpip">
       <UniqueIdentifier>{b616ce0d-d0bb-4fb8-8a13-dde51323c370}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\network">
+      <UniqueIdentifier>{1ac1a19e-d5cb-4ca0-b177-a97d2da7d88e}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <Text Include="ReadMe.txt" />
@@ -84,6 +87,12 @@
     <ClInclude Include="..\..\..\protocol\tcpip\ArpHandler.h">
       <Filter>Header Files\protocol\tcpip</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\..\ip\NetworkCard.h">
+      <Filter>Header Files\network</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\ip\NetworkCardPool.h">
+      <Filter>Header Files\network</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\pcap\Device.cpp">
@@ -136,6 +145,9 @@
     </ClCompile>
     <ClCompile Include="..\..\..\protocol\tcpip\ArpHandler.cpp">
       <Filter>Header Files\protocol\tcpip</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\ip\NetworkCardPool.cpp">
+      <Filter>Header Files\network</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

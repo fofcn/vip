@@ -72,7 +72,7 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>F:\github.com\fofcn\vip\vip;C:\Users\error\Downloads\WpdPack\Include;$(IncludePath)</IncludePath>
+    <IncludePath>../../../;../../../pcap/inc;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
@@ -94,7 +94,7 @@
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>C:\Users\error\Downloads\WpdPack\Lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>../../../pcap/lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalDependencies>Ws2_32.lib;wpcap.lib;packet.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
@@ -158,6 +158,8 @@
     <ClInclude Include="..\..\..\handler\PacketChannelInboundInvoker.h" />
     <ClInclude Include="..\..\..\handler\PacketChannelOutboundInvoker.h" />
     <ClInclude Include="..\..\..\handler\PacketChannelPipeline.h" />
+    <ClInclude Include="..\..\..\ip\NetworkCard.h" />
+    <ClInclude Include="..\..\..\ip\NetworkCardPool.h" />
     <ClInclude Include="..\..\..\pcap\Device.h" />
     <ClInclude Include="..\..\..\pcap\Packet.h" />
     <ClInclude Include="..\..\..\protocol\ProtocolHeader.h" />
@@ -178,6 +180,7 @@
     <ClCompile Include="..\..\..\handler\PacketChannelInboundInvoker.cpp" />
     <ClCompile Include="..\..\..\handler\PacketChannelOutboundInvoker.cpp" />
     <ClCompile Include="..\..\..\handler\PacketChannelPipeline.cpp" />
+    <ClCompile Include="..\..\..\ip\NetworkCardPool.cpp" />
     <ClCompile Include="..\..\..\pcap\Device.cpp" />
     <ClCompile Include="..\..\..\pcap\Packet.cpp" />
     <ClCompile Include="..\..\..\protocol\tcpip\ArpHandler.cpp" />

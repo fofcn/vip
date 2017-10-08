@@ -39,13 +39,14 @@ int main(int argc, char**  argv)
 	for (d = alldevs; d; d = d->next, i++)
 	{
 		printf("%s    %s\n", d->name, d->description);
-		if (i == 2)
+		if (i == 1)
 		{
-			break;
+			//break;
 		}
 	}
 
-	pcap_t *pd = pcap_create(d->name, errbuf);
+	std::string devName = "\\Device\\NPF_{4B3493A3-4AEB-49E5-839D-134946B0CED4}";
+	pcap_t *pd = pcap_create(devName.c_str(), errbuf);
 	if (pd == nullptr)
 	{
 		printf("%s", errbuf);
@@ -53,7 +54,7 @@ int main(int argc, char**  argv)
 	}
 	int status;
 	bpf_u_int32 localnet, netmask;
-	if (pcap_lookupnet(d->name, &localnet, &netmask, errbuf) < 0) {
+	if (pcap_lookupnet(devName.c_str(), &localnet, &netmask, errbuf) < 0) {
 		localnet = 0;
 		netmask = 0;
 		printf("%s\n", errbuf);
