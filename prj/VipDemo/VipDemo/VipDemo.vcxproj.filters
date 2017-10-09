@@ -93,6 +93,9 @@
     <ClInclude Include="..\..\..\ip\NetworkCardPool.h">
       <Filter>Header Files\network</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\..\pcap\NetDevice.h">
+      <Filter>Header Files\pcap</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\pcap\Device.cpp">
@@ -148,6 +151,9 @@
     </ClCompile>
     <ClCompile Include="..\..\..\ip\NetworkCardPool.cpp">
       <Filter>Header Files\network</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\pcap\NetDevice.cpp">
+      <Filter>Header Files\pcap</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

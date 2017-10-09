@@ -4,6 +4,7 @@
 #pragma once
 
 #include "handler/PacketChannelHandler.h"
+#include "EthernetHandler.h"
 
 class ArpHandler : public PacketChannelHandler
 {

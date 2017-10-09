@@ -6,7 +6,6 @@
 
 ArpHandler::ArpHandler() : PacketChannelHandler("ARP")
 {
-
 }
 
 void ArpHandler::channelRead(Packet *p)
@@ -37,6 +36,21 @@ void ArpHandler::channelRead(Packet *p)
 			strcpy((char *)arp.sender_mac, "");//TODO MACµØÖ·
 			arp.target_ip = arpHdr->target_ip;
 			strcpy((char *)arp.target_mac, (char *)arpHdr->target_mac);
+
+			ether_header eth;
+			strcpy((char *)eth.ether_dhost, (char *)arpHdr->target_mac);
+			strcpy((char *)eth.ether_shost, (char *)arpHdr->target_mac);
+			eth.ether_type = htons(ETHERNET_ARP);
+
+			char pt[sizeof(struct arp_hdr) + sizeof(struct ether_hdr)];
+
+			memcpy(pt, &eth, sizeof(struct ether_hdr));
+
+			char *pp = pt;
+			pp += sizeof(struct ether_hdr);
+			memcpy(pp, &arp, sizeof(arp_hdr));
+
+			//p->write();
 		}
 	}
 	else//ARPÏìÓ¦

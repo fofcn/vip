@@ -10,7 +10,7 @@
 class EthernetHandler : public PacketChannelHandler
 {
 public:
-	EthernetHandler(std::string name);
+	EthernetHandler();
 	~EthernetHandler();
 	virtual std::string getName();
 	virtual void channelRead(Packet *p);

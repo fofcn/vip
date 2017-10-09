@@ -19,12 +19,11 @@ extern void print_ip(int ip);
 
 int main(int argc, char**  argv)
 {
-	EthernetHandler ethernetHandler("ethernet");
+	EthernetHandler ethernetHandler;
 	ethIpTcpPipeline.addLast(&ethernetHandler);
 
 	pcap_if_t *alldevs;
 	pcap_if_t *d;
-	bpf_u_int32 net, mask;
 	int exit_status = 0;
 	char errbuf[PCAP_ERRBUF_SIZE + 1];
 
@@ -45,7 +44,10 @@ int main(int argc, char**  argv)
 		}
 	}
 
-	std::string devName = "\\Device\\NPF_{4B3493A3-4AEB-49E5-839D-134946B0CED4}";
+	//笔记本测试机设备名
+	//std::string devName = "\\Device\\NPF_{4B3493A3-4AEB-49E5-839D-134946B0CED4}";
+	//台式测试机设备名
+	std::string devName = "\\Device\\NPF_{668E95F4-C365-4BC4-A3A9-407FC352316D}";
 	pcap_t *pd = pcap_create(devName.c_str(), errbuf);
 	if (pd == nullptr)
 	{
@@ -62,8 +64,6 @@ int main(int argc, char**  argv)
 
 	print_ip(netmask);
 	netmask = ntohl(netmask);
-
-	struct bpf_program fcode;
 	
 	status = pcap_activate(pd);
 

@@ -8,17 +8,12 @@
 class Device
 {
 public:
-    virtual bool exists() = 0;
-};
-
-class NetDevice : public Device
-{
-public:
-    NetDevice(char *name) : name(name) {};
-
-    virtual bool exists();
-private:
-    char *name;
+	/*开始抓包*/
+	virtual void startCapture() = 0;
+	/*停止抓包*/
+	virtual void stopCapture() = 0;
+	/*发送数据包*/
+	virtual void send(void *p) = 0;
 };
 
 #endif //VIP_DEVICE_H

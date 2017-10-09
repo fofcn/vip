@@ -30,8 +30,8 @@ class DefaultChannelHandler : public PacketChannelHandler
 public:
 	DefaultChannelHandler(std::string name) : PacketChannelHandler(name){inbound = false; outbound = false; this->name = name; }
     virtual std::string getName() {return name;}
-    virtual void channelRead(Packet *p) {std::cout<< name.c_str()<<std::endl;p->content = "456," + p->content;}
-    virtual void write(Packet p) {std::cout << p.content.c_str()<<std::endl;}
+    virtual void channelRead(Packet *p) {}
+    virtual void write(Packet p) {}
 };
 
 

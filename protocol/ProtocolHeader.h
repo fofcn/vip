@@ -10,19 +10,20 @@
 #define MAC_LEN 6
 
 #define IPV4 (0x0800)
+#define ETHERNET_ARP (0x0806)
 
 #define ICMP 1
 #define TCP 6
 #define UDP 17
 
-struct ether_header
+struct ether_hdr
 {
     uchar ether_dhost[6];
     uchar ether_shost[6];
     ushort ether_type;
 };
 
-typedef struct ether_header eth_header;
+typedef struct ether_hdr ether_header;
 
 struct ip_hdr
 {

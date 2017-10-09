@@ -7,7 +7,6 @@
 
 IpHandler::IpHandler() : PacketChannelHandler("IP")
 {
-	this->name = name;
 	tcpHandler = new TcpHandler();
 }
 

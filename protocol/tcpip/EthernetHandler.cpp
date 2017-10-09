@@ -6,9 +6,8 @@
 #include "IpHandler.h"
 #include "ArpHandler.h"
 
-EthernetHandler::EthernetHandler(std::string name)
+EthernetHandler::EthernetHandler() : PacketChannelHandler("Ethernet")
 {
-	this->name = name;
 	ipHandler = new IpHandler();
 	arpHandler = new ArpHandler();
 }
@@ -19,6 +18,12 @@ EthernetHandler::~EthernetHandler()
 	{
 		delete ipHandler;
 		ipHandler = nullptr;
+	}
+
+	if (arpHandler != nullptr)
+	{
+		delete arpHandler;
+		arpHandler = nullptr;
 	}
 }
 
@@ -31,11 +36,11 @@ void EthernetHandler::channelRead(Packet *p)
 
 	switch (type)
 	{
-	case 0x0800:
+	case IPV4:
 		std::cout << "ip" << std::endl;
 		this->next = ipHandler;
 		break;
-	case 0x0806:
+	case ETHERNET_ARP:
 		std::cout << "arp" << std::endl;
 		this->next = arpHandler;
 		break;
