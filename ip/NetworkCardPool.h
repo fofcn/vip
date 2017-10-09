@@ -13,6 +13,8 @@ public:
 	static NetworkCardPool *getInstance();
 
 	bool contains(int ip);
+
+	void addIp(int ip);
 private:
 	NetworkCardPool();
 	~NetworkCardPool();

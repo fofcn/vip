@@ -5,8 +5,8 @@ NetDevice::NetDevice(char *name) : name(name), pd(nullptr), initialized(false), 
 {
 	pipeline = new DefaultPacketChannelPipeline();
 
-	EthernetHandler ethernetHandler;
-	pipeline->addLast(&ethernetHandler);
+	PacketChannelHandler *ethernetHandler = new EthernetHandler();
+	pipeline->addLast(ethernetHandler);
 }
 
 NetDevice::~NetDevice()
@@ -32,10 +32,13 @@ void NetDevice::startCapture()
 	{
 		status = pcap_dispatch(pd, 0, NetDevice::callback, (u_char *)this);
 		if (status < 0)
+		{
+			stopped = true;
 			break;
-		if (status != 0) {
-			printf("%d packets seen, %d packets counted after pcap_dispatch returns\n",
-				status, 1);
+		}
+		if (status != 0) 
+		{
+			
 		}
 	}
 }
@@ -54,7 +57,7 @@ void NetDevice::send(void *arg)
 void NetDevice::callback(u_char *arg, const struct pcap_pkthdr *pktHdr, const u_char *packet)
 {
 	NetDevice *pThis = (NetDevice *)arg;
-	Packet p((uchar *)packet);
+	Packet p((uchar *)packet, pThis);
 	pThis->pipeline->fireChannelRead(&p);
 }
 
@@ -76,25 +79,26 @@ bool NetDevice::init()
 	}
 
 	initialized = true;
+	return true;
 }
 
 bool NetDevice::exists()
 {
-	    pcap_if_t *devList = NULL;
-	    char errBuf[PCAP_ERRBUF_SIZE] = {0};
+	pcap_if_t *devList = NULL;
+	char errBuf[PCAP_ERRBUF_SIZE] = {0};
 	
-	    if(pcap_findalldevs(&devList, errBuf) == -1)
-	    {
-	        return false;
-	    }
+	if(pcap_findalldevs(&devList, errBuf) == -1)
+	{
+	    return false;
+	}
 	
-	    for(pcap_if_t *d = devList; d; d = d->next)
+	for(pcap_if_t *d = devList; d; d = d->next)
+	{
+	    if(strcmp(d->name, name) == 0)
 	    {
-	        if(strcmp(d->name, name) == 0)
-	        {
-	            return true;
-	        }
+	        return true;
 	    }
+	}
 
 	return false;
 }

@@ -38,3 +38,8 @@ bool NetworkCardPool::contains(int ip)
 	return false;
 }
 
+void NetworkCardPool::addIp(int ip)
+{
+	NetworkCard networkCard(ip);
+	ipList.push_back(networkCard);
+}

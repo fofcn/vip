@@ -4,6 +4,8 @@
 #include "protocol/ProtocolHeader.h"
 #include "ip/NetworkCardPool.h"
 
+extern void print_ip(int ip);
+
 ArpHandler::ArpHandler() : PacketChannelHandler("ARP")
 {
 }
@@ -13,16 +15,21 @@ void ArpHandler::channelRead(Packet *p)
 	p->moveToIpStart();
 
 	arp_header *arpHdr = (arp_header *)p->getP();
-	std::cout << "arp operation code: " << ntohs(arpHdr->op_code) << std::endl;
+	//std::cout << "arp operation code: " << ntohs(arpHdr->op_code) << std::endl;
 	//不是以太网类型放弃
 	if (ntohs(arpHdr->hw_type) != HW_TYPE_ETH)
 	{
 		return;
 	}
 
-	//ARP请求时，判断是否存在该IP
-	if (ntohs(arpHdr->proto_type) == ARP_REQUEST)
+	if (ntohs(arpHdr->proto_type) != IPV4)
 	{
+		return;
+	}
+	//ARP请求时，判断是否存在该IP
+	if (ntohs(arpHdr->op_code) == ARP_REQUEST)
+	{
+		print_ip(ntohl(arpHdr->target_ip));
 		if (NetworkCardPool::getInstance()->contains(ntohl(arpHdr->target_ip)))
 		{
 			//构造ARP响应
@@ -42,15 +49,16 @@ void ArpHandler::channelRead(Packet *p)
 			strcpy((char *)eth.ether_shost, (char *)arpHdr->target_mac);
 			eth.ether_type = htons(ETHERNET_ARP);
 
-			char pt[sizeof(struct arp_hdr) + sizeof(struct ether_hdr)];
+			uchar pt[sizeof(struct arp_hdr) + sizeof(struct ether_hdr)];
 
 			memcpy(pt, &eth, sizeof(struct ether_hdr));
 
-			char *pp = pt;
+			uchar *pp = pt;
 			pp += sizeof(struct ether_hdr);
 			memcpy(pp, &arp, sizeof(arp_hdr));
 
-			//p->write();
+			Packet newPacket((uchar *)pt, p->getDevice());
+			newPacket.write();
 		}
 	}
 	else//ARP响应

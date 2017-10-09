@@ -1,21 +1,23 @@
 //
 // Created by error on 2017/9/28.
 //
-#pragma once
 
 #ifndef VIP_PACKET_H
 #define VIP_PACKET_H
 
+#pragma once
+
 #include <iostream>
 
 #include "protocol/ProtocolHeader.h"
-#include "pcap/NetDevice.h"
+#include "pcap/Device.h"
 
 class Packet
 {
 public:
-	Packet(uchar *p);
+	Packet(uchar *p, Device *dev);
 	uchar *getP();
+	Device *getDevice();
 	void moveToIpStart();
 	void moveToTcpStart();
 	void write();
@@ -23,7 +25,7 @@ public:
 private:
 	uchar *p;
 	uchar *start;
-	NetDevice *device;
+	Device *device;
 	int size;
 };
 

@@ -29,7 +29,7 @@ EthernetHandler::~EthernetHandler()
 
 void EthernetHandler::channelRead(Packet *p)
 {
-	std::cout << "ethernet handler" << std::endl;
+	//std::cout << "ethernet handler" << std::endl;
 	ether_header *eth = (ether_header *)p->getP();
 
 	ushort type = ntohs(eth->ether_type);
@@ -37,7 +37,7 @@ void EthernetHandler::channelRead(Packet *p)
 	switch (type)
 	{
 	case IPV4:
-		std::cout << "ip" << std::endl;
+		//std::cout << "ip" << std::endl;
 		this->next = ipHandler;
 		break;
 	case ETHERNET_ARP:
@@ -48,7 +48,7 @@ void EthernetHandler::channelRead(Packet *p)
 		std::cout << "Sorry, we will support this protocol soon." << std::endl;
 	}
 
-	printf("ethernet type: 0x%04x\n", type);
+	//printf("ethernet type: 0x%04x\n", type);
 }
 
 std::string EthernetHandler::getName()

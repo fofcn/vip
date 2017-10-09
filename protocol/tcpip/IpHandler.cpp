@@ -32,27 +32,27 @@ void print_ip(int ip)
 
 void IpHandler::channelRead(Packet *p)
 {
-	std::cout << "Internet Protocol!" << std::endl;
+	//std::cout << "Internet Protocol!" << std::endl;
 
 	p->moveToIpStart();
 	ip_header *ipHdr = (ip_header *)p->getP();
 	switch(ipHdr->protocol)
 	{
 	case TCP:
-		std::cout << "TCP protocol" << std::endl;
+		//std::cout << "TCP protocol" << std::endl;
 		this->next = tcpHandler;
 		break;
 	case ICMP:
-		std::cout << "ICMP protocol" << std::endl;
+		//std::cout << "ICMP protocol" << std::endl;
 		break;
 	case UDP:
-		std::cout << "UDP protocol" << std::endl;
+		//std::cout << "UDP protocol" << std::endl;
 		break;
 	}
 
 
-	print_ip(ntohl(ipHdr->src_addr));
-	print_ip(ntohl(ipHdr->dst_addr));
+	//print_ip(ntohl(ipHdr->src_addr));
+	//print_ip(ntohl(ipHdr->dst_addr));
 
 	uchar protocol = ipHdr->protocol;
 

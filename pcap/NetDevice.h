@@ -15,7 +15,7 @@ public:
 	~NetDevice();
 	
 	
-	virtual virtual void startCapture();
+	virtual void startCapture();
 	virtual void stopCapture();
 	virtual void send(void *arg);
 private:
@@ -43,7 +43,6 @@ private:
 	/*是否停止抓包*/
 	bool stopped;
 
-	/*包pipeline*/
 	PacketChannelPipeline *pipeline;
 };
 

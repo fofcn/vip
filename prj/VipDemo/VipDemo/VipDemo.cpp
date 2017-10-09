@@ -9,15 +9,66 @@
 #include "pcap/Device.h"
 #include "protocol/tcpip/EthernetHandler.h"
 #include "protocol/tcpip/IpHandler.h"
+#include "pcap/NetDevice.h"
+#include "ip/NetworkCardPool.h"
 
 DefaultPacketChannelPipeline ethIpTcpPipeline;
 DefaultPacketChannelPipeline ethArpTcpPipeline;
 
 static void countme(u_char *user, const struct pcap_pkthdr *h, const u_char *packet);
 extern void print_ip(int ip);
-
+int ipToInt(char *ip);
 
 int main(int argc, char**  argv)
+{
+	u_long ip = ntohl(inet_addr("192.168.1.220"));
+	NetworkCardPool::getInstance()->addIp(ip);
+	char *devName = "\\Device\\NPF_{4B3493A3-4AEB-49E5-839D-134946B0CED4}";
+	Device *dev = new NetDevice(devName);
+	dev->startCapture();
+}
+
+int ipToInt(char *ip)
+{
+	/* The return value. */
+	unsigned v = 0;
+	/* The count of the number of bytes processed. */
+	int i;
+	/* A pointer to the next digit to process. */
+	const char * start;
+
+	start = ip;
+	for (i = 0; i < 4; i++) {
+		/* The digit being processed. */
+		char c;
+		/* The value of this byte. */
+		int n = 0;
+		while (1) {
+			c = *start;
+			start++;
+			if (c >= '0' && c <= '9') {
+				n *= 10;
+				n += c - '0';
+			}
+			/* We insist on stopping at "." if we are still parsing
+			the first, second, or third numbers. If we have reached
+			the end of the numbers, we will allow any character. */
+			else if ((i < 3 && c == '.') || i == 3) {
+				break;
+			}
+			else {
+				return 0;
+			}
+		}
+		if (n >= 256) {
+			return 0;
+		}
+		v *= 256;
+		v += n;
+	}
+	return v;
+}
+int demo()
 {
 	EthernetHandler ethernetHandler;
 	ethIpTcpPipeline.addLast(&ethernetHandler);
@@ -62,17 +113,17 @@ int main(int argc, char**  argv)
 		printf("%s\n", errbuf);
 	}
 
-	print_ip(netmask);
+	//print_ip(netmask);
 	netmask = ntohl(netmask);
-	
+
 	status = pcap_activate(pd);
 
 	/*if (pcap_compile(pd, &fcode, "ip host 192.168.2.138", 1, netmask) != 0)
-		printf("%s\n", pcap_geterr(pd));
+	printf("%s\n", pcap_geterr(pd));
 
 	if (pcap_setfilter(pd, &fcode) != 0)
-		printf("%s", pcap_geterr(pd));
-		*/
+	printf("%s", pcap_geterr(pd));
+	*/
 
 	int packet_count;
 	for (;;)
@@ -87,7 +138,7 @@ int main(int argc, char**  argv)
 				status, packet_count);
 		}
 	}
-    return 0;
+	return 0;
 }
 
 static void countme(u_char *user, const struct pcap_pkthdr *h, const u_char *packet)
@@ -108,7 +159,7 @@ static void countme(u_char *user, const struct pcap_pkthdr *h, const u_char *pac
 	}
 	printf("ethernet type: 0x%04x\n", type);
 	*/
-	Packet p((uchar *)packet);
+	Packet p((uchar *)packet, nullptr);
 	ethIpTcpPipeline.fireChannelRead(&p);
 
 	int *counterp = (int *)user;
