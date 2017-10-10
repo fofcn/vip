@@ -14,6 +14,8 @@ public:
 	virtual void stopCapture() = 0;
 	/*发送数据包*/
 	virtual void send(void *p) = 0;
+	/*获取MAC地址*/
+	virtual char *getMac() = 0;
 };
 
 #endif //VIP_DEVICE_H

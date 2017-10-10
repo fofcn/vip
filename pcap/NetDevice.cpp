@@ -4,6 +4,12 @@
 NetDevice::NetDevice(char *name) : name(name), pd(nullptr), initialized(false), stopped(false)
 {
 	pipeline = new DefaultPacketChannelPipeline();
+	
+	char testMac[] = { 0x94, 0xDE, 0x80, 0xFF, 0x39, 0x74 };
+	for (int i = 0; i < MAC_LEN; i++)
+	{
+		mac[i] = testMac[i];
+	}
 
 	PacketChannelHandler *ethernetHandler = new EthernetHandler();
 	pipeline->addLast(ethernetHandler);
@@ -51,13 +57,19 @@ void NetDevice::stopCapture()
 void NetDevice::send(void *arg)
 {
 	Packet *p = (Packet *)arg;
-	pcap_sendpacket(pd, (u_char *)(p->getP()), p->getSize());
+	int status = pcap_sendpacket(pd, (u_char *)(p->getP()), p->getSize());
+
+}
+
+char *NetDevice::getMac()
+{
+	return (char*)mac;
 }
 
 void NetDevice::callback(u_char *arg, const struct pcap_pkthdr *pktHdr, const u_char *packet)
 {
 	NetDevice *pThis = (NetDevice *)arg;
-	Packet p((uchar *)packet, pThis);
+	Packet p((uchar *)packet, 0, pThis);
 	pThis->pipeline->fireChannelRead(&p);
 }
 

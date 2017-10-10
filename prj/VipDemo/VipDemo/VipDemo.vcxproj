@@ -166,6 +166,7 @@
     <ClInclude Include="..\..\..\protocol\ProtocolHeader.h" />
     <ClInclude Include="..\..\..\protocol\tcpip\ArpHandler.h" />
     <ClInclude Include="..\..\..\protocol\tcpip\EthernetHandler.h" />
+    <ClInclude Include="..\..\..\protocol\tcpip\IcmpHandler.h" />
     <ClInclude Include="..\..\..\protocol\tcpip\IpHandler.h" />
     <ClInclude Include="..\..\..\protocol\tcpip\TcpHandler.h" />
     <ClInclude Include="stdafx.h" />
@@ -187,6 +188,7 @@
     <ClCompile Include="..\..\..\pcap\Packet.cpp" />
     <ClCompile Include="..\..\..\protocol\tcpip\ArpHandler.cpp" />
     <ClCompile Include="..\..\..\protocol\tcpip\EthernetHandler.cpp" />
+    <ClCompile Include="..\..\..\protocol\tcpip\IcmpHandler.cpp" />
     <ClCompile Include="..\..\..\protocol\tcpip\IpHandler.cpp" />
     <ClCompile Include="..\..\..\protocol\tcpip\TcpHandler.cpp" />
     <ClCompile Include="stdafx.cpp">

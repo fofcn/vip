@@ -12,9 +12,10 @@
 #define IPV4 (0x0800)
 #define ETHERNET_ARP (0x0806)
 
-#define ICMP 1
 #define TCP 6
 #define UDP 17
+
+#pragma pack(push, 1)
 
 struct ether_hdr
 {
@@ -55,6 +56,7 @@ struct ip_hdr
 	//
 	uchar ttl;
 	//下一协议
+#define ICMP (1)
 	uchar protocol;
 	//头部校验和
 	ushort check_sum;
@@ -95,22 +97,51 @@ typedef struct tcp_hdr tcp_header;
 struct arp_hdr
 {
 #define HW_TYPE_ETH (1)
+	//设备类型
 	ushort hw_type;
 
-	//IP or?
+	//IP or? 协议类型
 	ushort proto_type;
+	//设备长度
 	uchar hw_size;
+	//协议长度
 	uchar proto_size;
 #define ARP_REQUEST (1)
 #define ARP_REPLYL  (2)
+	//操作码
 	ushort op_code;
-	uchar sender_mac[6];
+	//请求者MAC地址
+	uchar sender_mac[MAC_LEN];
+	//请求者IP
 	uint sender_ip;
-	uchar target_mac[6];
+	//目标MAC op_code为请求时，为0
+	uchar target_mac[MAC_LEN];
+	//目标IP
 	uint target_ip;
 };
 
 typedef struct arp_hdr arp_header;
+
+struct icmp_hdr
+{
+#define ECHO_REQUEST (8)
+#define ECHO_REPLY (0)
+	//请求类型
+	uchar type;
+
+	uchar code;
+	//校验和
+	ushort check_sum;
+
+	ushort id;
+
+	ushort seq_num;
+
+	uchar *data;
+};
+
+typedef struct icmp_hdr icmp_header;
+
 
 #pragma pack()
 

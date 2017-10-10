@@ -12,21 +12,33 @@
 #include "protocol/ProtocolHeader.h"
 #include "pcap/Device.h"
 
+union header
+{
+	tcp_header *tcp;
+	icmp_header *icmp;
+	ip_header *ip;
+};
+
+
 class Packet
 {
 public:
-	Packet(uchar *p, Device *dev);
+	Packet(uchar *p, int size, Device *dev);
 	uchar *getP();
 	Device *getDevice();
-	void moveToIpStart();
+	void moveEthLen();
 	void moveToTcpStart();
 	void write();
+	ip_header *getIpHeader();
+	icmp_header *getIcmpHeader();
 	int getSize();
 private:
 	uchar *p;
 	uchar *start;
 	Device *device;
 	int size;
+	union header *h;
+	ip_header *ipHeader;
 };
 
 

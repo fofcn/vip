@@ -18,6 +18,7 @@ public:
 	virtual void startCapture();
 	virtual void stopCapture();
 	virtual void send(void *arg);
+	virtual char *getMac();
 private:
 	/*初始化设备*/
 	bool init();
@@ -33,6 +34,9 @@ private:
 private:
 	/*设备名称*/
 	char *name;
+
+	/*MAC 地址*/
+	uchar mac[MAC_LEN];
 
 	/*设备句柄*/
 	pcap_t *pd;

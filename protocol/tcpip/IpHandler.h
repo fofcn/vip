@@ -15,6 +15,8 @@ public:
 	virtual void write(Packet p);
 private:
 	PacketChannelHandler *tcpHandler;
+	PacketChannelHandler *icmpHandler;
+	PacketChannelHandler *prev;
 };
 
 #endif

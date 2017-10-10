@@ -12,7 +12,7 @@ ArpHandler::ArpHandler() : PacketChannelHandler("ARP")
 
 void ArpHandler::channelRead(Packet *p)
 {
-	p->moveToIpStart();
+	p->moveEthLen();
 
 	arp_header *arpHdr = (arp_header *)p->getP();
 	//std::cout << "arp operation code: " << ntohs(arpHdr->op_code) << std::endl;
@@ -26,9 +26,13 @@ void ArpHandler::channelRead(Packet *p)
 	{
 		return;
 	}
+
 	//ARP请求时，判断是否存在该IP
 	if (ntohs(arpHdr->op_code) == ARP_REQUEST)
 	{
+		printf("Srouce Ip: ");
+		print_ip(ntohl(arpHdr->sender_ip));
+		printf("Target Ip:");
 		print_ip(ntohl(arpHdr->target_ip));
 		if (NetworkCardPool::getInstance()->contains(ntohl(arpHdr->target_ip)))
 		{
@@ -40,16 +44,16 @@ void ArpHandler::channelRead(Packet *p)
 			arp.proto_size = 4;
 			arp.op_code = htons(ARP_REPLYL);
 			arp.sender_ip = arpHdr->target_ip;
-			strcpy((char *)arp.sender_mac, "");//TODO MAC地址
+			memcpy((char *)(arp.sender_mac), (char *)(p->getDevice()->getMac()), MAC_LEN);
 			arp.target_ip = arpHdr->target_ip;
-			strcpy((char *)arp.target_mac, (char *)arpHdr->target_mac);
+			memcpy((char *)arp.target_mac, (char *)arpHdr->sender_mac, MAC_LEN);
 
 			ether_header eth;
-			strcpy((char *)eth.ether_dhost, (char *)arpHdr->target_mac);
-			strcpy((char *)eth.ether_shost, (char *)arpHdr->target_mac);
+			memcpy((char *)eth.ether_dhost, (char *)arpHdr->sender_mac, MAC_LEN);
+			memcpy((char *)eth.ether_shost, (char *)p->getDevice()->getMac(), MAC_LEN);
 			eth.ether_type = htons(ETHERNET_ARP);
 
-			uchar pt[sizeof(struct arp_hdr) + sizeof(struct ether_hdr)];
+			uchar pt[sizeof(struct arp_hdr) + sizeof(struct ether_hdr)] = {0};
 
 			memcpy(pt, &eth, sizeof(struct ether_hdr));
 
@@ -57,7 +61,7 @@ void ArpHandler::channelRead(Packet *p)
 			pp += sizeof(struct ether_hdr);
 			memcpy(pp, &arp, sizeof(arp_hdr));
 
-			Packet newPacket((uchar *)pt, p->getDevice());
+			Packet newPacket((uchar *)pt, sizeof(struct arp_hdr) + sizeof(struct ether_hdr), p->getDevice());
 			newPacket.write();
 		}
 	}

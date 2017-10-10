@@ -21,53 +21,14 @@ int ipToInt(char *ip);
 
 int main(int argc, char**  argv)
 {
-	u_long ip = ntohl(inet_addr("192.168.1.220"));
+	int size = sizeof(struct arp_hdr);
+	u_long ip = ntohl(inet_addr("192.168.2.220"));
 	NetworkCardPool::getInstance()->addIp(ip);
-	char *devName = "\\Device\\NPF_{4B3493A3-4AEB-49E5-839D-134946B0CED4}";
+	char *devName = "\\Device\\NPF_{668E95F4-C365-4BC4-A3A9-407FC352316D}";
 	Device *dev = new NetDevice(devName);
 	dev->startCapture();
 }
 
-int ipToInt(char *ip)
-{
-	/* The return value. */
-	unsigned v = 0;
-	/* The count of the number of bytes processed. */
-	int i;
-	/* A pointer to the next digit to process. */
-	const char * start;
-
-	start = ip;
-	for (i = 0; i < 4; i++) {
-		/* The digit being processed. */
-		char c;
-		/* The value of this byte. */
-		int n = 0;
-		while (1) {
-			c = *start;
-			start++;
-			if (c >= '0' && c <= '9') {
-				n *= 10;
-				n += c - '0';
-			}
-			/* We insist on stopping at "." if we are still parsing
-			the first, second, or third numbers. If we have reached
-			the end of the numbers, we will allow any character. */
-			else if ((i < 3 && c == '.') || i == 3) {
-				break;
-			}
-			else {
-				return 0;
-			}
-		}
-		if (n >= 256) {
-			return 0;
-		}
-		v *= 256;
-		v += n;
-	}
-	return v;
-}
 int demo()
 {
 	EthernetHandler ethernetHandler;
@@ -159,7 +120,7 @@ static void countme(u_char *user, const struct pcap_pkthdr *h, const u_char *pac
 	}
 	printf("ethernet type: 0x%04x\n", type);
 	*/
-	Packet p((uchar *)packet, nullptr);
+	Packet p((uchar *)packet, 0, nullptr);
 	ethIpTcpPipeline.fireChannelRead(&p);
 
 	int *counterp = (int *)user;

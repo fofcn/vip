@@ -2,12 +2,15 @@
 
 #include "IpHandler.h"
 #include "TcpHandler.h"
-#include "../ProtocolHeader.h"
-
+#include "EthernetHandler.h"
+#include "IcmpHandler.h"
+#include "protocol/ProtocolHeader.h"
 
 IpHandler::IpHandler() : PacketChannelHandler("IP")
 {
 	tcpHandler = new TcpHandler();
+	icmpHandler = new IcmpHandler();
+	prev = new EthernetHandler();
 }
 
 
@@ -17,6 +20,18 @@ IpHandler::~IpHandler()
 	{
 		delete tcpHandler;
 		tcpHandler = nullptr;
+	}
+
+	if (icmpHandler != nullptr)
+	{
+		delete icmpHandler;
+		icmpHandler = nullptr;
+	}
+
+	if (prev != nullptr)
+	{
+		delete prev;
+		prev = nullptr;
 	}
 }
 
@@ -34,7 +49,7 @@ void IpHandler::channelRead(Packet *p)
 {
 	//std::cout << "Internet Protocol!" << std::endl;
 
-	p->moveToIpStart();
+	p->moveEthLen();
 	ip_header *ipHdr = (ip_header *)p->getP();
 	switch(ipHdr->protocol)
 	{
