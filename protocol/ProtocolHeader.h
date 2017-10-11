@@ -136,8 +136,6 @@ struct icmp_hdr
 	ushort id;
 
 	ushort seq_num;
-
-	uchar *data;
 };
 
 typedef struct icmp_hdr icmp_header;

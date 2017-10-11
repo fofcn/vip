@@ -22,7 +22,7 @@ void TcpHandler::channelRead(Packet *p)
 	//std::cout << "Source port: " << ntohs(hdr->src_port) << ", destination port: " << ntohs(hdr->dst_port) << std::endl;
 }
 
-void TcpHandler::write(Packet p)
+void TcpHandler::write(Packet *p)
 {
 
 }

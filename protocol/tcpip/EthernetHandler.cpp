@@ -56,7 +56,7 @@ std::string EthernetHandler::getName()
 	return name;
 }
 
-void EthernetHandler::write(Packet p)
+void EthernetHandler::write(Packet *p)
 {
 
 }

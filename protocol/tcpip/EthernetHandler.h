@@ -14,7 +14,7 @@ public:
 	~EthernetHandler();
 	virtual std::string getName();
 	virtual void channelRead(Packet *p);
-	virtual void write(Packet p);
+	virtual void write(Packet *p);
 
 private:
 	PacketChannelHandler *ipHandler;

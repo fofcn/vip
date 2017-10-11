@@ -10,9 +10,9 @@ class IcmpHandler : public PacketChannelHandler
 public:
 	IcmpHandler();
 	virtual void channelRead(Packet *p);
-	virtual void write(Packet p);
+	virtual void write(Packet *p);
 private:
-	PacketChannelHandler *next;
+	PacketChannelHandler *prev;
 };
 
 #endif

@@ -12,7 +12,7 @@ public:
 	~IpHandler();
 
 	virtual void channelRead(Packet *p);
-	virtual void write(Packet p);
+	virtual void write(Packet *p);
 private:
 	PacketChannelHandler *tcpHandler;
 	PacketChannelHandler *icmpHandler;

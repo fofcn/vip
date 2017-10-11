@@ -99,7 +99,7 @@ void IpHandler::channelRead(Packet *p)
 
 
 
-void IpHandler::write(Packet p)
+void IpHandler::write(Packet *p)
 {
 
 }

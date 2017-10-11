@@ -72,7 +72,7 @@ void ArpHandler::channelRead(Packet *p)
 
 }
 
-void ArpHandler::write(Packet p)
+void ArpHandler::write(Packet *p)
 {
 
 }

@@ -32,12 +32,19 @@ public:
 	ip_header *getIpHeader();
 	icmp_header *getIcmpHeader();
 	int getSize();
+	int getCurSize();
 private:
 	uchar *p;
 	uchar *start;
+	//网络设备
 	Device *device;
+	//数据总长度
 	int size;
+	//当前协议数据大小
+	int curSize;
+	//协议头
 	union header *h;
+	//ip头
 	ip_header *ipHeader;
 };
 

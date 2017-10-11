@@ -28,6 +28,7 @@ ip_header *Packet::getIpHeader()
 
 icmp_header *Packet::getIcmpHeader()
 {
+	curSize = ipHeader->tot_len - ipHeader->hl;
 	return h->icmp;
 }
 
@@ -49,4 +50,9 @@ void Packet::write()
 int Packet::getSize() 
 { 
 	return size; 
+}
+
+int Packet::getCurSize()
+{
+	return curSize;
 }

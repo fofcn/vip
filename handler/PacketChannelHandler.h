@@ -15,7 +15,7 @@ public:
 	PacketChannelHandler(std::string name) : name(name), next(nullptr), prev(nullptr) {}
 	virtual std::string getName() { return name; };
     virtual void channelRead(Packet *p) = 0;
-    virtual void write(Packet p) = 0;
+    virtual void write(Packet *p) = 0;
 protected:
     bool inbound;
     bool outbound;
@@ -31,7 +31,7 @@ public:
 	DefaultChannelHandler(std::string name) : PacketChannelHandler(name){inbound = false; outbound = false; this->name = name; }
     virtual std::string getName() {return name;}
     virtual void channelRead(Packet *p) {}
-    virtual void write(Packet p) {}
+    virtual void write(Packet *p) {}
 };
 
 
