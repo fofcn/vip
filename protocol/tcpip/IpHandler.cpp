@@ -106,15 +106,22 @@ void IpHandler::write(Packet *p)
 	ip_header newIpHdr;
 	newIpHdr.version = 4;
 	newIpHdr.hl = sizeof(newIpHdr);
-	newIpHdr.tos = ;
-	newIpHdr.id = ;
-	newIpHdr.flags = ;
-	newIpHdr.frag_off = ;
-	newIpHdr.ttl = 0;
+	newIpHdr.tot_len = p->getSize() + sizeof(struct ip_hdr);
+	newIpHdr.tos = 0;
+	newIpHdr.id = 1024;
+	newIpHdr.flags = 0;
+	newIpHdr.frag_off = 0;
+	newIpHdr.ttl = 64;
 	newIpHdr.protocol = ipHdr->protocol;
-	newIpHdr.check_sum = ;
+	newIpHdr.check_sum = 0;
 	newIpHdr.src_addr = ipHdr->dst_addr;
 	newIpHdr.dst_addr = ipHdr->src_addr;
 
-	prev->write();
+	uchar *buf = (uchar *)malloc(p->getSize() + sizeof(struct ip_hdr));
+	memcpy(buf, &newIpHdr, sizeof(ip_hdr));
+	memcpy(buf + sizeof(ip_hdr), p->getP(), p->getSize());
+
+	Packet newPacket(buf, sizeof(struct ip_hdr) + sizeof(icmp_hdr), p->getDevice());
+
+	prev->write(&newPacket);
 }

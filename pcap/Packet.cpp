@@ -26,6 +26,11 @@ ip_header *Packet::getIpHeader()
 	return ipHeader;
 }
 
+ip_header *Packet::getOldIpHeader()
+{
+	return ipHeader;
+}
+
 icmp_header *Packet::getIcmpHeader()
 {
 	curSize = ipHeader->tot_len - ipHeader->hl;
@@ -55,4 +60,9 @@ int Packet::getSize()
 int Packet::getCurSize()
 {
 	return curSize;
+}
+
+void Packet::setOldP(uchar *p)
+{
+	this->p = p;
 }

@@ -30,11 +30,15 @@ public:
 	void moveToTcpStart();
 	void write();
 	ip_header *getIpHeader();
+	ip_header *getOldIpHeader();
 	icmp_header *getIcmpHeader();
 	int getSize();
 	int getCurSize();
+
+	void setOldP(uchar *p);
 private:
 	uchar *p;
+	uchar *old;
 	uchar *start;
 	//ÍøÂçÉè±¸
 	Device *device;
@@ -46,6 +50,8 @@ private:
 	union header *h;
 	//ipÍ·
 	ip_header *ipHeader;
+
+	ether_header *ethHeader;
 };
 
 
