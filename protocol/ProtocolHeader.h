@@ -35,7 +35,7 @@ struct ip_hdr
 	uchar version : 4;
 #elif __BYTE_ORDER == __BIG_ENDIAN
 	uint version : 4;
-	uint ip_hl : 4;
+	uint hl : 4;
 #endif
 	//服务类型,选择传输最优路径【rfc1349】
 	uchar tos;

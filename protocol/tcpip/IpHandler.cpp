@@ -101,5 +101,20 @@ void IpHandler::channelRead(Packet *p)
 
 void IpHandler::write(Packet *p)
 {
+	ip_header *ipHdr = p->getIpHeader();
+	
+	ip_header newIpHdr;
+	newIpHdr.version = 4;
+	newIpHdr.hl = sizeof(newIpHdr);
+	newIpHdr.tos = ;
+	newIpHdr.id = ;
+	newIpHdr.flags = ;
+	newIpHdr.frag_off = ;
+	newIpHdr.ttl = 0;
+	newIpHdr.protocol = ipHdr->protocol;
+	newIpHdr.check_sum = ;
+	newIpHdr.src_addr = ipHdr->dst_addr;
+	newIpHdr.dst_addr = ipHdr->src_addr;
 
+	prev->write();
 }
