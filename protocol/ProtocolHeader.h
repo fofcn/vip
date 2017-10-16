@@ -26,6 +26,8 @@ struct ether_hdr
 
 typedef struct ether_hdr ether_header;
 
+#define ETH_ALEN 14
+
 struct ip_hdr
 {
 #if __BYTE_ORDER == __LITTLE_ENDIAN

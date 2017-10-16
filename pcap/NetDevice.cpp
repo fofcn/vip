@@ -1,5 +1,6 @@
 #include "NetDevice.h"
 #include "protocol/tcpip/EthernetHandler.h"
+#include "pcap/SkBuffer.h"
 
 NetDevice::NetDevice(char *name) : name(name), pd(nullptr), initialized(false), stopped(false)
 {
@@ -69,8 +70,27 @@ char *NetDevice::getMac()
 void NetDevice::callback(u_char *arg, const struct pcap_pkthdr *pktHdr, const u_char *packet)
 {
 	NetDevice *pThis = (NetDevice *)arg;
+	SkBuffer skBuffer((uchar *)packet, pktHdr->len);
+	skBuffer.resetMacHeader();
+	/*skBuffer.pull(ETH_ALEN);
+	ether_header *ethHdr = (ether_header *)skBuffer.skMacHeader();
+	ushort type = ntohs(ethHdr->ether_type);
+
+	switch (type)
+	{
+	case IPV4:
+		std::cout << "ip" << std::endl;
+		break;
+	case ETHERNET_ARP:
+		std::cout << "arp" << std::endl;
+		break;
+	defaut:
+		std::cout << "Sorry, we will support this protocol soon." << std::endl;
+	}
+	*/
+
 	Packet p((uchar *)packet, 0, pThis);
-	pThis->pipeline->fireChannelRead(&p);
+	//pThis->pipeline->fireChannelRead(&p);
 }
 
 bool NetDevice::init()

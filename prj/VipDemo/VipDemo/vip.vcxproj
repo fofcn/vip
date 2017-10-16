@@ -188,6 +188,7 @@
     <ClCompile Include="..\..\..\pcap\Device.cpp" />
     <ClCompile Include="..\..\..\pcap\NetDevice.cpp" />
     <ClCompile Include="..\..\..\pcap\Packet.cpp" />
+    <ClCompile Include="..\..\..\pcap\SkBuffer.cpp" />
     <ClCompile Include="..\..\..\protocol\tcpip\ArpHandler.cpp" />
     <ClCompile Include="..\..\..\protocol\tcpip\EthernetHandler.cpp" />
     <ClCompile Include="..\..\..\protocol\tcpip\IcmpHandler.cpp" />

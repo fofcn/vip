@@ -1,0 +1,154 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="stdafx.cpp" />
+    <ClCompile Include="..\..\..\pcap\Device.cpp">
+      <Filter>pcap</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\pcap\NetDevice.cpp">
+      <Filter>pcap</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\pcap\Packet.cpp">
+      <Filter>pcap</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\ip\NetworkCardPool.cpp">
+      <Filter>ip</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\protocol\tcpip\ArpHandler.cpp">
+      <Filter>protocol\tcpip</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\protocol\tcpip\EthernetHandler.cpp">
+      <Filter>protocol\tcpip</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\protocol\tcpip\IcmpHandler.cpp">
+      <Filter>protocol\tcpip</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\protocol\tcpip\IpHandler.cpp">
+      <Filter>protocol\tcpip</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\protocol\tcpip\TcpHandler.cpp">
+      <Filter>protocol\tcpip</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\handler\AbstractPacketChannelHandlerContext.cpp">
+      <Filter>common</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\handler\DefaultPacketChannelPipeline.cpp">
+      <Filter>common</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\handler\PacketChannel.cpp">
+      <Filter>common</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\handler\PacketChannelHandler.cpp">
+      <Filter>common</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\handler\PacketChannelHandlerContext.cpp">
+      <Filter>common</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\handler\PacketChannelInboundHandler.cpp">
+      <Filter>common</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\handler\PacketChannelInboundInvoker.cpp">
+      <Filter>common</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\handler\PacketChannelOutboundInvoker.cpp">
+      <Filter>common</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\handler\PacketChannelPipeline.cpp">
+      <Filter>common</Filter>
+    </ClCompile>
+    <ClCompile Include="Vip.cpp" />
+    <ClCompile Include="..\..\..\pcap\SkBuffer.cpp">
+      <Filter>pcap</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="stdafx.h" />
+    <ClInclude Include="targetver.h" />
+    <ClInclude Include="..\..\..\pcap\Device.h">
+      <Filter>pcap</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\pcap\NetDevice.h">
+      <Filter>pcap</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\pcap\Packet.h">
+      <Filter>pcap</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\ip\NetworkCard.h">
+      <Filter>ip</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\ip\NetworkCardPool.h">
+      <Filter>ip</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\protocol\ProtocolHeader.h">
+      <Filter>protocol</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\protocol\tcpip\ArpHandler.h">
+      <Filter>protocol\tcpip</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\protocol\tcpip\EthernetHandler.h">
+      <Filter>protocol\tcpip</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\protocol\tcpip\IcmpHandler.h">
+      <Filter>protocol\tcpip</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\protocol\tcpip\IpHandler.h">
+      <Filter>protocol\tcpip</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\protocol\tcpip\TcpHandler.h">
+      <Filter>protocol\tcpip</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\handler\AbstractPacketChannelHandlerContext.h">
+      <Filter>common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\handler\DefaultPacketChannelPipeline.h">
+      <Filter>common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\handler\PacketChannel.h">
+      <Filter>common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\handler\PacketChannelHandler.h">
+      <Filter>common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\handler\PacketChannelHandlerContext.h">
+      <Filter>common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\handler\PacketChannelInboundHandler.h">
+      <Filter>common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\handler\PacketChannelInboundInvoker.h">
+      <Filter>common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\handler\PacketChannelOutboundInvoker.h">
+      <Filter>common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\handler\PacketChannelPipeline.h">
+      <Filter>common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\pcap\SkBuffer.h">
+      <Filter>pcap</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="ReadMe.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="handler">
+      <UniqueIdentifier>{19a0e24f-9117-447c-b969-4f2e39a88944}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="pcap">
+      <UniqueIdentifier>{795cbe19-3aad-45b2-a886-dfa57dae007d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ip">
+      <UniqueIdentifier>{3f97e7ad-008c-49a9-8a6a-d9e6357e1241}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="protocol">
+      <UniqueIdentifier>{83a8bd74-7ecc-42e1-898f-465391d7db9f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="protocol\tcpip">
+      <UniqueIdentifier>{2e8981fb-5285-4886-b3f9-e2348b080df9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="common">
+      <UniqueIdentifier>{7efe6c9b-9420-4f86-a159-ed8bc2fd6cd0}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>
