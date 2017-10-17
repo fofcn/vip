@@ -6,7 +6,7 @@
 #define VIP_PACKETCHANNELHANDLER_H
 
 #include <iostream>
-#include "pcap/Packet.h"
+#include "pcap/SkBuffer.h"
 
 class PacketChannelHandler
 {
@@ -14,8 +14,8 @@ public:
 	PacketChannelHandler() {}
 	PacketChannelHandler(std::string name) : name(name), next(nullptr), prev(nullptr) {}
 	virtual std::string getName() { return name; };
-    virtual void channelRead(Packet *p) = 0;
-    virtual void write(Packet *p) = 0;
+    virtual void channelRead(SkBuffer *skBuffer) = 0;
+    virtual void write(SkBuffer *skBuffer) = 0;
 protected:
     bool inbound;
     bool outbound;
@@ -30,8 +30,8 @@ class DefaultChannelHandler : public PacketChannelHandler
 public:
 	DefaultChannelHandler(std::string name) : PacketChannelHandler(name){inbound = false; outbound = false; this->name = name; }
     virtual std::string getName() {return name;}
-    virtual void channelRead(Packet *p) {}
-    virtual void write(Packet *p) {}
+    virtual void channelRead(SkBuffer *skBuffer) {}
+    virtual void write(SkBuffer *skBufferp) {}
 };
 
 

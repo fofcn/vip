@@ -5,6 +5,7 @@
 #include "EthernetHandler.h"
 #include "IpHandler.h"
 #include "ArpHandler.h"
+#include "protocol/ProtocolHeader.h"
 
 EthernetHandler::EthernetHandler() : PacketChannelHandler("Ethernet")
 {
@@ -27,12 +28,14 @@ EthernetHandler::~EthernetHandler()
 	}
 }
 
-void EthernetHandler::channelRead(Packet *p)
+void EthernetHandler::channelRead(SkBuffer *skBuffer)
 {
-	//std::cout << "ethernet handler" << std::endl;
-	ether_header *eth = (ether_header *)p->getP();
+	skBuffer->resetMacHeader();
+	skBuffer->pull(ETH_ALEN);
+	ether_header *ethHdr = (ether_header *)skBuffer->skMacHeader();
+	ushort type = ntohs(ethHdr->ether_type);
 
-	ushort type = ntohs(eth->ether_type);
+	ushort type = ntohs(ethHdr->ether_type);
 
 	switch (type)
 	{
@@ -41,7 +44,7 @@ void EthernetHandler::channelRead(Packet *p)
 		this->next = ipHandler;
 		break;
 	case ETHERNET_ARP:
-		std::cout << "arp" << std::endl;
+		//std::cout << "arp" << std::endl;
 		this->next = arpHandler;
 		break;
 	defaut:
@@ -56,7 +59,7 @@ std::string EthernetHandler::getName()
 	return name;
 }
 
-void EthernetHandler::write(Packet *p)
+void EthernetHandler::write(SkBuffer *skBuffer)
 {
 
 }

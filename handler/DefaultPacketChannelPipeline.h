@@ -12,9 +12,9 @@ class DefaultPacketChannelPipeline : public PacketChannelPipeline
 public:
     virtual PacketChannelPipeline *addLast(PacketChannelHandler *handler);
     virtual void print();
-    virtual void fireChannelRead(Packet *p);
+    virtual void fireChannelRead(SkBuffer *skBuffer);
 private:
-    void invokeChannelRead(PacketChannelHandler *next, Packet *p);
+    void invokeChannelRead(PacketChannelHandler *next, SkBuffer *skBuffer);
 };
 
 

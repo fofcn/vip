@@ -12,8 +12,8 @@ public:
 	TcpHandler();
 	~TcpHandler();
 
-	virtual void channelRead(Packet *p);
-	virtual void write(Packet *p);
+	virtual void channelRead(SkBuffer *skBuffer);
+	virtual void write(SkBuffer *skBuffer);
 };
 
 #endif

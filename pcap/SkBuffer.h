@@ -4,22 +4,34 @@
 #pragma once
 
 #include "Types.h"
+#include "Device.h"
 
 class SkBuffer
 {
 public:
-	SkBuffer();
-	SkBuffer(uchar *data, unsigned int len);
+	SkBuffer(Device *dev);
+	SkBuffer(uchar *data, unsigned int len, Device *dev);
 	/**分配buffer*/
-	void allocBuffer(unsigned int size);
+	inline void allocBuffer(unsigned int size);
 	/**data指针后移len长度*/
-	void reserve(unsigned int len);
+	inline void reserve(unsigned int len);
 
-	void pull(unsigned int len);
+	inline void pull(unsigned int len);
+	inline void push(unsigned int len);
 
-	void resetMacHeader();
+	inline void resetMacHeader();
+	inline uchar *skMacHeader();
 
-	uchar *skMacHeader();
+	inline void resetNetworkHeader();
+	inline uchar *skNetworkHeader();
+
+	inline void resetTransportHeader();
+	inline uchar *skTransportHeader();
+
+	inline unsigned int skLen();
+
+	inline uchar *skData();
+	
 private:
 	//链路层头
 	uchar *macHeader;
@@ -34,6 +46,8 @@ private:
 	uchar *head;
 	//数据大小
 	unsigned int len;
+
+	Device *dev;
 };
 
 #endif

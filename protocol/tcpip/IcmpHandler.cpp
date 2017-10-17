@@ -6,7 +6,7 @@ IcmpHandler::IcmpHandler() : PacketChannelHandler("ICMP")
 	prev = new IpHandler();
 }
 
-void IcmpHandler::channelRead(Packet *p)
+void IcmpHandler::channelRead(SkBuffer *skBuffer)
 {
 	icmp_header *icmpHdr = p->getIcmpHeader();
 	std::cout << "icmp protocol" << std::endl;
@@ -17,7 +17,7 @@ void IcmpHandler::channelRead(Packet *p)
 	}
 }
 
-void IcmpHandler::write(Packet *p)
+void IcmpHandler::write(SkBuffer *skBuffer)
 {
 	icmp_header *icmpHdr = p->getIcmpHeader();
 	icmp_header icmpReply;

@@ -45,12 +45,14 @@ void print_ip(int ip)
 	printf("%d.%d.%d.%d\n", bytes[3], bytes[2], bytes[1], bytes[0]);
 }
 
-void IpHandler::channelRead(Packet *p)
+void IpHandler::channelRead(SkBuffer *skBuffer)
 {
 	//std::cout << "Internet Protocol!" << std::endl;
 
-	p->moveEthLen();
-	ip_header *ipHdr = (ip_header *)p->getP();
+	skBuffer->resetNetworkHeader();
+	ip_header *ipHdr = (ip_header *)skBuffer->skNetworkHeader();
+	skBuffer->pull(ipHdr->hl);
+
 	switch(ipHdr->protocol)
 	{
 	case TCP:
@@ -99,14 +101,14 @@ void IpHandler::channelRead(Packet *p)
 
 
 
-void IpHandler::write(Packet *p)
+void IpHandler::write(SkBuffer *skBuffer)
 {
-	ip_header *ipHdr = p->getIpHeader();
+	ip_header *ipHdr = (ip_header *)skBuffer->skNetworkHeader();
 	
 	ip_header newIpHdr;
 	newIpHdr.version = 4;
 	newIpHdr.hl = sizeof(newIpHdr);
-	newIpHdr.tot_len = p->getSize() + sizeof(struct ip_hdr);
+	newIpHdr.tot_len = skBuffer->skLen();
 	newIpHdr.tos = 0;
 	newIpHdr.id = 1024;
 	newIpHdr.flags = 0;

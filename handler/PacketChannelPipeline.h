@@ -15,7 +15,7 @@ public:
     ~PacketChannelPipeline();
     virtual PacketChannelPipeline *addLast(PacketChannelHandler *handler) = 0;
     virtual void print() = 0;
-    virtual void fireChannelRead(Packet *p) = 0;
+    virtual void fireChannelRead(SkBuffer *skBuffer) = 0;
 public:
     PacketChannelHandler *head;
     PacketChannelHandler *tail;

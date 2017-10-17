@@ -57,8 +57,8 @@ void NetDevice::stopCapture()
 
 void NetDevice::send(void *arg)
 {
-	Packet *p = (Packet *)arg;
-	int status = pcap_sendpacket(pd, (u_char *)(p->getP()), p->getSize());
+	SkBuffer *skBuffer = (SkBuffer *)arg;
+	int status = pcap_sendpacket(pd, (u_char *)(p->skData()), skBuffer->skLen());
 
 }
 
@@ -70,9 +70,9 @@ char *NetDevice::getMac()
 void NetDevice::callback(u_char *arg, const struct pcap_pkthdr *pktHdr, const u_char *packet)
 {
 	NetDevice *pThis = (NetDevice *)arg;
-	SkBuffer skBuffer((uchar *)packet, pktHdr->len);
-	skBuffer.resetMacHeader();
-	/*skBuffer.pull(ETH_ALEN);
+	SkBuffer skBuffer((uchar *)packet, pktHdr->len, pThis);
+	/*skBuffer.resetMacHeader();
+	skBuffer.pull(ETH_ALEN);
 	ether_header *ethHdr = (ether_header *)skBuffer.skMacHeader();
 	ushort type = ntohs(ethHdr->ether_type);
 
@@ -89,8 +89,7 @@ void NetDevice::callback(u_char *arg, const struct pcap_pkthdr *pktHdr, const u_
 	}
 	*/
 
-	Packet p((uchar *)packet, 0, pThis);
-	//pThis->pipeline->fireChannelRead(&p);
+	pThis->pipeline->fireChannelRead(&skBuffer);
 }
 
 bool NetDevice::init()

@@ -10,11 +10,11 @@ ArpHandler::ArpHandler() : PacketChannelHandler("ARP")
 {
 }
 
-void ArpHandler::channelRead(Packet *p)
+void ArpHandler::channelRead(SkBuffer *skBuffer)
 {
-	p->moveEthLen();
+	skBuffer->resetNetworkHeader();
 
-	arp_header *arpHdr = (arp_header *)p->getP();
+	arp_header *arpHdr = (arp_header *)skBuffer->skNetworkHeader();
 	//std::cout << "arp operation code: " << ntohs(arpHdr->op_code) << std::endl;
 	//不是以太网类型放弃
 	if (ntohs(arpHdr->hw_type) != HW_TYPE_ETH)
@@ -72,7 +72,7 @@ void ArpHandler::channelRead(Packet *p)
 
 }
 
-void ArpHandler::write(Packet *p)
+void ArpHandler::write(SkBuffer *skBuffer)
 {
 
 }

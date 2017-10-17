@@ -14,15 +14,13 @@ TcpHandler::~TcpHandler()
 }
 
 
-void TcpHandler::channelRead(Packet *p)
+void TcpHandler::channelRead(SkBuffer *skBuffer)
 {
-	p->moveToTcpStart();
-
-	tcp_header *hdr = (tcp_header *)p->getP();
+	tcp_header *hdr = (tcp_header *)skBuffer->skTransportHeader();
 	//std::cout << "Source port: " << ntohs(hdr->src_port) << ", destination port: " << ntohs(hdr->dst_port) << std::endl;
 }
 
-void TcpHandler::write(Packet *p)
+void TcpHandler::write(SkBuffer *skBuffer)
 {
-
+	
 }
