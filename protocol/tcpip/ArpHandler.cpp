@@ -36,33 +36,24 @@ void ArpHandler::channelRead(SkBuffer *skBuffer)
 		print_ip(ntohl(arpHdr->target_ip));
 		if (NetworkCardPool::getInstance()->contains(ntohl(arpHdr->target_ip)))
 		{
+			SkBuffer newBuffer(skBuffer->skDevice());
+			newBuffer.allocBuffer(ETH_ALEN + sizeof(struct arp_hdr));
+			newBuffer.reserve(ETH_ALEN);
+			newBuffer.resetNetworkHeader();
+			arp_header *arp = (arp_header *)newBuffer.skNetworkHeader();
+
 			//构造ARP响应
-			arp_header arp;
-			arp.hw_type = htons(HW_TYPE_ETH);
-			arp.hw_size = MAC_LEN;
-			arp.proto_type = htons(IPV4);
-			arp.proto_size = 4;
-			arp.op_code = htons(ARP_REPLYL);
-			arp.sender_ip = arpHdr->target_ip;
-			memcpy((char *)(arp.sender_mac), (char *)(p->getDevice()->getMac()), MAC_LEN);
-			arp.target_ip = arpHdr->target_ip;
-			memcpy((char *)arp.target_mac, (char *)arpHdr->sender_mac, MAC_LEN);
+			arp->hw_type = htons(HW_TYPE_ETH);
+			arp->hw_size = MAC_LEN;
+			arp->proto_type = htons(IPV4);
+			arp->proto_size = 4;
+			arp->op_code = htons(ARP_REPLYL);
+			arp->sender_ip = arpHdr->target_ip;
+			memcpy(arp->sender_mac, skBuffer->skDevice()->getMac(), MAC_LEN);
+			arp->target_ip = arpHdr->target_ip;
+			memcpy(arp->target_mac, arpHdr->sender_mac, MAC_LEN);
 
-			ether_header eth;
-			memcpy((char *)eth.ether_dhost, (char *)arpHdr->sender_mac, MAC_LEN);
-			memcpy((char *)eth.ether_shost, (char *)p->getDevice()->getMac(), MAC_LEN);
-			eth.ether_type = htons(ETHERNET_ARP);
-
-			uchar pt[sizeof(struct arp_hdr) + sizeof(struct ether_hdr)] = {0};
-
-			memcpy(pt, &eth, sizeof(struct ether_hdr));
-
-			uchar *pp = pt;
-			pp += sizeof(struct ether_hdr);
-			memcpy(pp, &arp, sizeof(arp_hdr));
-
-			Packet newPacket((uchar *)pt, sizeof(struct arp_hdr) + sizeof(struct ether_hdr), p->getDevice());
-			newPacket.write();
+			write(&newBuffer);
 		}
 	}
 	else//ARP响应
@@ -74,5 +65,5 @@ void ArpHandler::channelRead(SkBuffer *skBuffer)
 
 void ArpHandler::write(SkBuffer *skBuffer)
 {
-
+	prev->write(skBuffer);
 }

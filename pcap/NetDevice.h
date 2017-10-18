@@ -1,12 +1,15 @@
-#pragma once
+
+
 
 #ifndef VIP_NETDEVICE_H_
 #define VIP_NETDEVICE_H_
+#pragma once
 
 #include <iostream>
 #include <pcap.h>
 #include "Device.h"
 #include "handler/DefaultPacketChannelPipeline.h"
+#include "protocol/ProtocolHeader.h"
 
 class NetDevice : public Device
 {

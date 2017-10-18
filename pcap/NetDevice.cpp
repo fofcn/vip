@@ -58,7 +58,7 @@ void NetDevice::stopCapture()
 void NetDevice::send(void *arg)
 {
 	SkBuffer *skBuffer = (SkBuffer *)arg;
-	int status = pcap_sendpacket(pd, (u_char *)(p->skData()), skBuffer->skLen());
+	int status = pcap_sendpacket(pd, (u_char *)(skBuffer->skData()), skBuffer->skLen());
 
 }
 

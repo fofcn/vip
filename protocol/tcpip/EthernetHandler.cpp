@@ -33,10 +33,8 @@ void EthernetHandler::channelRead(SkBuffer *skBuffer)
 	skBuffer->resetMacHeader();
 	skBuffer->pull(ETH_ALEN);
 	ether_header *ethHdr = (ether_header *)skBuffer->skMacHeader();
-	ushort type = ntohs(ethHdr->ether_type);
 
 	ushort type = ntohs(ethHdr->ether_type);
-
 	switch (type)
 	{
 	case IPV4:
@@ -61,5 +59,13 @@ std::string EthernetHandler::getName()
 
 void EthernetHandler::write(SkBuffer *skBuffer)
 {
+	skBuffer->push(ETH_ALEN);
+	skBuffer->resetMacHeader();
+	ether_header *eth = (ether_header *)skBuffer->skMacHeader();
 
+	memcpy(eth->ether_dhost, eth->ether_dhost, MAC_LEN);
+	memcpy(eth->ether_shost, skBuffer->skDevice()->getMac(), MAC_LEN);
+	eth->ether_type = htons(ETHERNET_ARP);
+
+	skBuffer->skDevice()->send(skBuffer);
 }

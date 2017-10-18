@@ -53,6 +53,8 @@ void IpHandler::channelRead(SkBuffer *skBuffer)
 	ip_header *ipHdr = (ip_header *)skBuffer->skNetworkHeader();
 	skBuffer->pull(ipHdr->hl);
 
+	skBuffer->skAddr(ipHdr->src_addr, ipHdr->dst_addr);
+
 	switch(ipHdr->protocol)
 	{
 	case TCP:
@@ -103,27 +105,22 @@ void IpHandler::channelRead(SkBuffer *skBuffer)
 
 void IpHandler::write(SkBuffer *skBuffer)
 {
-	ip_header *ipHdr = (ip_header *)skBuffer->skNetworkHeader();
+	skBuffer->push(sizeof(struct ip_hdr));
+	skBuffer->resetNetworkHeader();
+	ip_header *newIpHdr = (ip_header *)skBuffer->skNetworkHeader();
 	
-	ip_header newIpHdr;
-	newIpHdr.version = 4;
-	newIpHdr.hl = sizeof(newIpHdr);
-	newIpHdr.tot_len = skBuffer->skLen();
-	newIpHdr.tos = 0;
-	newIpHdr.id = 1024;
-	newIpHdr.flags = 0;
-	newIpHdr.frag_off = 0;
-	newIpHdr.ttl = 64;
-	newIpHdr.protocol = ipHdr->protocol;
-	newIpHdr.check_sum = 0;
-	newIpHdr.src_addr = ipHdr->dst_addr;
-	newIpHdr.dst_addr = ipHdr->src_addr;
+	newIpHdr->version = 4;
+	newIpHdr->hl = sizeof(newIpHdr);
+	newIpHdr->tot_len = skBuffer->skLen();
+	newIpHdr->tos = 0;
+	newIpHdr->id = 1024;
+	newIpHdr->flags = 0;
+	newIpHdr->frag_off = 0;
+	newIpHdr->ttl = 64;
+	newIpHdr->protocol = skBuffer->skProtocol();
+	newIpHdr->check_sum = 0;
+	newIpHdr->src_addr = skBuffer->skSrcAddr();
+	newIpHdr->dst_addr = skBuffer->skDstAddr();
 
-	uchar *buf = (uchar *)malloc(p->getSize() + sizeof(struct ip_hdr));
-	memcpy(buf, &newIpHdr, sizeof(ip_hdr));
-	memcpy(buf + sizeof(ip_hdr), p->getP(), p->getSize());
-
-	Packet newPacket(buf, sizeof(struct ip_hdr) + sizeof(icmp_hdr), p->getDevice());
-
-	prev->write(&newPacket);
+	prev->write(skBuffer);
 }

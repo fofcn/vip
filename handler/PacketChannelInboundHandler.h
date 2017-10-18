@@ -11,7 +11,7 @@
 class PacketChannelInboundHandler : public PacketChannelHandler
 {
 public:
-    virtual void read(PacketChannelHandler *handler, Packet packet) = 0;
+    virtual void read(PacketChannelHandler *handler, void *packet) = 0;
 };
 
 
