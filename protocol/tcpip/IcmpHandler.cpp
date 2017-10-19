@@ -2,9 +2,24 @@
 #include "IpHandler.h"
 #include "protocol/ProtocolHeader.h"
 
+extern PacketChannelHandler *ipHandler;
+
 IcmpHandler::IcmpHandler() : PacketChannelHandler("ICMP")
 {
-	prev = new IpHandler();
+	prev = ipHandler;
+}
+
+IcmpHandler::~IcmpHandler()
+{
+	if (prev != nullptr) {
+		delete prev;
+		prev = nullptr;
+	}
+}
+
+bool IcmpHandler::init()
+{
+	return true;
 }
 
 void IcmpHandler::channelRead(SkBuffer *skBuffer)

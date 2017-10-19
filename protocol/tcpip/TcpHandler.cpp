@@ -13,6 +13,10 @@ TcpHandler::~TcpHandler()
 {
 }
 
+bool TcpHandler::init()
+{
+	return true;
+}
 
 void TcpHandler::channelRead(SkBuffer *skBuffer)
 {

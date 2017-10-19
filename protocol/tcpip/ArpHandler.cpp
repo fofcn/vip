@@ -6,8 +6,16 @@
 
 extern void print_ip(int ip);
 
+PacketChannelHandler *ethHandler = new EthernetHandler();
+
 ArpHandler::ArpHandler() : PacketChannelHandler("ARP")
 {
+	prev = ethHandler;
+}
+
+bool ArpHandler::init()
+{
+	return true;
 }
 
 void ArpHandler::channelRead(SkBuffer *skBuffer)
@@ -15,7 +23,7 @@ void ArpHandler::channelRead(SkBuffer *skBuffer)
 	skBuffer->resetNetworkHeader();
 
 	arp_header *arpHdr = (arp_header *)skBuffer->skNetworkHeader();
-	//std::cout << "arp operation code: " << ntohs(arpHdr->op_code) << std::endl;
+	std::cout << "arp operation code: " << ntohs(arpHdr->op_code) << std::endl;
 	//不是以太网类型放弃
 	if (ntohs(arpHdr->hw_type) != HW_TYPE_ETH)
 	{

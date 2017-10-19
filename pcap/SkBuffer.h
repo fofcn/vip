@@ -14,7 +14,7 @@ public:
 	/**∑÷≈‰buffer*/
 	inline void allocBuffer(unsigned int size)
 	{
-		data = new uchar(size);
+		data = (uchar *)malloc(uchar(size));
 		head = data;
 		len = size;
 	}

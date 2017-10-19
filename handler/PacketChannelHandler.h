@@ -14,6 +14,7 @@ public:
 	PacketChannelHandler() {}
 	PacketChannelHandler(std::string name) : name(name), next(nullptr), prev(nullptr) {}
 	virtual std::string getName() { return name; };
+	virtual bool init() = 0;
     virtual void channelRead(SkBuffer *skBuffer) = 0;
     virtual void write(SkBuffer *skBuffer) = 0;
 protected:
@@ -30,6 +31,7 @@ class DefaultChannelHandler : public PacketChannelHandler
 public:
 	DefaultChannelHandler(std::string name) : PacketChannelHandler(name){inbound = false; outbound = false; this->name = name; }
     virtual std::string getName() {return name;}
+	virtual bool init() { return true; }
     virtual void channelRead(SkBuffer *skBuffer) {}
     virtual void write(SkBuffer *skBufferp) {}
 };

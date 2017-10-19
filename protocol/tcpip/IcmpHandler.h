@@ -9,6 +9,9 @@ class IcmpHandler : public PacketChannelHandler
 {
 public:
 	IcmpHandler();
+	~IcmpHandler();
+
+	virtual bool init();
 	virtual void channelRead(SkBuffer *skBuffer);
 	virtual void write(SkBuffer *skBuffer);
 private:

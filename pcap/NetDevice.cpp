@@ -2,6 +2,8 @@
 #include "protocol/tcpip/EthernetHandler.h"
 #include "pcap/SkBuffer.h"
 
+extern PacketChannelHandler *ethHandler;
+
 NetDevice::NetDevice(char *name) : name(name), pd(nullptr), initialized(false), stopped(false)
 {
 	pipeline = new DefaultPacketChannelPipeline();
@@ -11,9 +13,6 @@ NetDevice::NetDevice(char *name) : name(name), pd(nullptr), initialized(false), 
 	{
 		mac[i] = testMac[i];
 	}
-
-	PacketChannelHandler *ethernetHandler = new EthernetHandler();
-	pipeline->addLast(ethernetHandler);
 }
 
 NetDevice::~NetDevice()
@@ -99,9 +98,11 @@ bool NetDevice::init()
 		return true;
 	}
 
+	pipeline->addLast(ethHandler);
+
 	if (!exists())
 	{
-		return false;
+		//return false;
 	}
 
 	if (!createAndActive())
@@ -118,7 +119,7 @@ bool NetDevice::exists()
 	pcap_if_t *devList = NULL;
 	char errBuf[PCAP_ERRBUF_SIZE] = {0};
 	
-	if(pcap_findalldevs(&devList, errBuf) == -1)
+	if(pcap_findalldevs(&devList, errBuf) != 0)
 	{
 	    return false;
 	}

@@ -6,11 +6,16 @@
 #include "IcmpHandler.h"
 #include "protocol/ProtocolHeader.h"
 
+PacketChannelHandler *tcpHandler = new TcpHandler();
+PacketChannelHandler *icmpHandler = new IcmpHandler();
+
+extern PacketChannelHandler *ethHandler;
+
 IpHandler::IpHandler() : PacketChannelHandler("IP")
 {
-	tcpHandler = new TcpHandler();
-	icmpHandler = new IcmpHandler();
-	prev = new EthernetHandler();
+	tcpHandler = tcpHandler;
+	icmpHandler = icmpHandler;
+	prev = ethHandler;
 }
 
 
@@ -33,6 +38,11 @@ IpHandler::~IpHandler()
 		delete prev;
 		prev = nullptr;
 	}
+}
+
+bool IpHandler::init()
+{
+	return true;
 }
 
 void print_ip(int ip)

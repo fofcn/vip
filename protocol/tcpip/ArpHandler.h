@@ -10,6 +10,8 @@ class ArpHandler : public PacketChannelHandler
 {
 public:
 	ArpHandler();
+
+	virtual bool init();
 	virtual void channelRead(SkBuffer *skBuffer);
 	virtual void write(SkBuffer *skBuffer);
 };
