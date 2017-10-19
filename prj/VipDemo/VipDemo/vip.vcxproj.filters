@@ -60,6 +60,9 @@
     <ClCompile Include="..\..\..\pcap\SkBuffer.cpp">
       <Filter>pcap</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\protocol\arp\Arp.cpp">
+      <Filter>protocol\arp</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h" />
@@ -127,6 +130,9 @@
     <ClInclude Include="..\..\..\pcap\SkBuffer.h">
       <Filter>pcap</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\..\protocol\arp\Arp.h">
+      <Filter>protocol\arp</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Text Include="ReadMe.txt" />
@@ -149,6 +155,9 @@
     </Filter>
     <Filter Include="common">
       <UniqueIdentifier>{7efe6c9b-9420-4f86-a159-ed8bc2fd6cd0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="protocol\arp">
+      <UniqueIdentifier>{cc27e26c-58e6-408e-a240-0ff3ddd1a8f0}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

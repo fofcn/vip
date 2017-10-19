@@ -109,7 +109,7 @@ struct arp_hdr
 	//协议长度
 	uchar proto_size;
 #define ARP_REQUEST (1)
-#define ARP_REPLYL  (2)
+#define ARP_REPLY  (2)
 	//操作码
 	ushort op_code;
 	//请求者MAC地址

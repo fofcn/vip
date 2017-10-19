@@ -55,7 +55,7 @@ void ArpHandler::channelRead(SkBuffer *skBuffer)
 			arp->hw_size = MAC_LEN;
 			arp->proto_type = htons(IPV4);
 			arp->proto_size = 4;
-			arp->op_code = htons(ARP_REPLYL);
+			arp->op_code = htons(ARP_REPLY);
 			arp->sender_ip = arpHdr->target_ip;
 			memcpy(arp->sender_mac, skBuffer->skDevice()->getMac(), MAC_LEN);
 			arp->target_ip = arpHdr->target_ip;

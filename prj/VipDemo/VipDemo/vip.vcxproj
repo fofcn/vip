@@ -166,6 +166,7 @@
     <ClInclude Include="..\..\..\pcap\NetDevice.h" />
     <ClInclude Include="..\..\..\pcap\Packet.h" />
     <ClInclude Include="..\..\..\pcap\SkBuffer.h" />
+    <ClInclude Include="..\..\..\protocol\arp\Arp.h" />
     <ClInclude Include="..\..\..\protocol\ProtocolHeader.h" />
     <ClInclude Include="..\..\..\protocol\tcpip\ArpHandler.h" />
     <ClInclude Include="..\..\..\protocol\tcpip\EthernetHandler.h" />
@@ -190,6 +191,7 @@
     <ClCompile Include="..\..\..\pcap\NetDevice.cpp" />
     <ClCompile Include="..\..\..\pcap\Packet.cpp" />
     <ClCompile Include="..\..\..\pcap\SkBuffer.cpp" />
+    <ClCompile Include="..\..\..\protocol\arp\Arp.cpp" />
     <ClCompile Include="..\..\..\protocol\tcpip\ArpHandler.cpp" />
     <ClCompile Include="..\..\..\protocol\tcpip\EthernetHandler.cpp" />
     <ClCompile Include="..\..\..\protocol\tcpip\IcmpHandler.cpp" />
