@@ -13,9 +13,6 @@ extern PacketChannelHandler *ethHandler;
 
 IpHandler::IpHandler() : PacketChannelHandler("IP")
 {
-	tcpHandler = tcpHandler;
-	icmpHandler = icmpHandler;
-	prev = ethHandler;
 }
 
 
@@ -73,6 +70,7 @@ void IpHandler::channelRead(SkBuffer *skBuffer)
 		break;
 	case ICMP:
 		//std::cout << "ICMP protocol" << std::endl;
+		this->next = icmpHandler;
 		break;
 	case UDP:
 		//std::cout << "UDP protocol" << std::endl;

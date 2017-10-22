@@ -63,6 +63,9 @@
     <ClCompile Include="..\..\..\protocol\arp\Arp.cpp">
       <Filter>protocol\arp</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\protocol\arp\ArpTable.cpp">
+      <Filter>protocol\arp</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h" />
@@ -131,6 +134,9 @@
       <Filter>pcap</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\protocol\arp\Arp.h">
+      <Filter>protocol\arp</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\protocol\arp\ArpTable.h">
       <Filter>protocol\arp</Filter>
     </ClInclude>
   </ItemGroup>

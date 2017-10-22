@@ -6,6 +6,8 @@
 #include "IpHandler.h"
 #include "ArpHandler.h"
 #include "protocol/ProtocolHeader.h"
+#include "protocol/arp/ArpTable.h"
+#include "protocol/arp/Arp.h"
 
 PacketChannelHandler *ipHandler = new IpHandler();
 PacketChannelHandler *arpHandler = new ArpHandler();
@@ -64,7 +66,20 @@ void EthernetHandler::write(SkBuffer *skBuffer)
 	skBuffer->resetMacHeader();
 	ether_header *eth = (ether_header *)skBuffer->skMacHeader();
 
-	memcpy(eth->ether_dhost, eth->ether_dhost, MAC_LEN);
+	arp_header *arpHdr = (arp_header *)skBuffer->skNetworkHeader();
+
+	uchar dstMac[MAC_LEN] = {0x00, 0xC2, 0xC6, 0x17, 0x63, 0x80};
+
+	//获取IP的MAC地址
+	arpTbl *tbl = ArpTable::getInstance()->get(arpHdr->target_ip);
+	if (tbl == nullptr)
+	{
+		//发送arp请求
+		Arp arp;
+		//arp.request();
+	}
+
+	memcpy(eth->ether_dhost, dstMac, MAC_LEN);
 	memcpy(eth->ether_shost, skBuffer->skDevice()->getMac(), MAC_LEN);
 	eth->ether_type = htons(ETHERNET_ARP);
 

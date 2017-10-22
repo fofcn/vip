@@ -24,6 +24,7 @@ bool IcmpHandler::init()
 
 void IcmpHandler::channelRead(SkBuffer *skBuffer)
 {
+	skBuffer->resetTransportHeader();
 	icmp_header *icmpHdr = (icmp_header *)skBuffer->skTransportHeader();
 	std::cout << "icmp protocol" << std::endl;
 	

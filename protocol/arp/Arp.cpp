@@ -2,6 +2,16 @@
 #include <string.h>
 #include "Arp.h"
 
+SkBuffer Arp::request(uint dstIp, uint srcIp, Device *dev, uchar *dstMac)
+{
+	return create(ECHO_REQUEST, dstIp, srcIp, dev, dstMac);
+}
+
+SkBuffer Arp::response(uint dstIp, uint srcIp, Device *dev, uchar *dstMac)
+{
+	return create(ECHO_REPLY, dstIp, srcIp, dev, dstMac);
+}
+
 SkBuffer Arp::create(int type, uint dstIp, uint srcIp, Device *dev, uchar *dstMac)
 {
 	SkBuffer skBuffer(dev);

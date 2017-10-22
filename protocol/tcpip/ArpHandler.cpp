@@ -45,7 +45,8 @@ void ArpHandler::channelRead(SkBuffer *skBuffer)
 		if (NetworkCardPool::getInstance()->contains(ntohl(arpHdr->target_ip)))
 		{
 			SkBuffer newBuffer(skBuffer->skDevice());
-			newBuffer.allocBuffer(ETH_ALEN + sizeof(struct arp_hdr));
+			unsigned int size = ETH_ALEN + sizeof(struct arp_hdr);
+			newBuffer.allocBuffer(size);
 			newBuffer.reserve(ETH_ALEN);
 			newBuffer.resetNetworkHeader();
 			arp_header *arp = (arp_header *)newBuffer.skNetworkHeader();
@@ -73,5 +74,7 @@ void ArpHandler::channelRead(SkBuffer *skBuffer)
 
 void ArpHandler::write(SkBuffer *skBuffer)
 {
+	arp_header *arp = (arp_header *)skBuffer->skNetworkHeader();
+	
 	prev->write(skBuffer);
 }

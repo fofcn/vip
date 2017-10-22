@@ -15,10 +15,6 @@ public:
 
 	virtual void channelRead(SkBuffer *skBuffer);
 	virtual void write(SkBuffer *skBuffer);
-private:
-	PacketChannelHandler *tcpHandler;
-	PacketChannelHandler *icmpHandler;
-	PacketChannelHandler *prev;
 };
 
 #endif
