@@ -8,6 +8,7 @@
 #include "protocol/ProtocolHeader.h"
 #include "protocol/arp/ArpTable.h"
 #include "protocol/arp/Arp.h"
+#include "protocol/arp/ArpHold.h"
 
 PacketChannelHandler *ipHandler = new IpHandler();
 PacketChannelHandler *arpHandler = new ArpHandler();
@@ -74,6 +75,8 @@ void EthernetHandler::write(SkBuffer *skBuffer)
 	arpTbl *tbl = ArpTable::getInstance()->get(arpHdr->target_ip);
 	if (tbl == nullptr)
 	{
+		//将SkBuffer添加到待发送队列
+		ArpHold::getInstance()->hold(arpHdr->target_ip, skBuffer);
 		//发送arp请求
 		Arp arp;
 		//arp.request();

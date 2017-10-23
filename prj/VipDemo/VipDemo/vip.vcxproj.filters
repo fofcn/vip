@@ -66,6 +66,12 @@
     <ClCompile Include="..\..\..\protocol\arp\ArpTable.cpp">
       <Filter>protocol\arp</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\protocol\arp\ArpHold.cpp">
+      <Filter>protocol\arp</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\protocol\arp\ArpHoldBuffer.cpp">
+      <Filter>protocol\arp</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h" />
@@ -137,6 +143,12 @@
       <Filter>protocol\arp</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\protocol\arp\ArpTable.h">
+      <Filter>protocol\arp</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\protocol\arp\ArpHold.h">
+      <Filter>protocol\arp</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\protocol\arp\ArpHoldBuffer.h">
       <Filter>protocol\arp</Filter>
     </ClInclude>
   </ItemGroup>
