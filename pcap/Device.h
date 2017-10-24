@@ -5,6 +5,8 @@
 #ifndef VIP_DEVICE_H
 #define VIP_DEVICE_H
 
+#include "Types.h"
+
 class Device
 {
 public:
@@ -15,7 +17,7 @@ public:
 	/*发送数据包*/
 	virtual void send(void *p) = 0;
 	/*获取MAC地址*/
-	virtual char *getMac() = 0;
+	virtual uchar *getMac() = 0;
 };
 
 #endif //VIP_DEVICE_H

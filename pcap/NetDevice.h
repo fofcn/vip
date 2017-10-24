@@ -21,7 +21,7 @@ public:
 	virtual void startCapture();
 	virtual void stopCapture();
 	virtual void send(void *arg);
-	virtual char *getMac();
+	virtual uchar *getMac();
 private:
 	/*初始化设备*/
 	bool init();

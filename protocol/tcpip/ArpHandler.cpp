@@ -2,6 +2,10 @@
 #include <WinSock2.h>
 #include "ArpHandler.h"
 #include "protocol/ProtocolHeader.h"
+#include "protocol/arp/Arp.h"
+#include "protocol/arp/ArpHold.h"
+#include "protocol/arp/ArpHoldBuffer.h"
+#include "protocol/arp/ArpTable.h"
 #include "ip/NetworkCardPool.h"
 
 extern void print_ip(int ip);
@@ -67,7 +71,26 @@ void ArpHandler::channelRead(SkBuffer *skBuffer)
 	}
 	else//ARP响应
 	{
-		//查看是否存在路由
+		//查看是否存在路由,不存在则添加
+		uint senderIp = ntohl(arpHdr->sender_ip);
+		arpTbl *arpTable = ArpTable::getInstance()->get(senderIp);
+		if (arpTable == nullptr)
+		{
+			arpTable = (arpTbl *)malloc(sizeof(struct arp_tbl));
+			memcpy(arpTable->mac, arpHdr->sender_mac, MAC_LEN);
+			ArpTable::getInstance()->add(senderIp, arpTable);
+		}
+
+		//查找是否有待发送的数据包，有则发送
+		ArpHoldBuffer *holdBuffer = ArpHold::getInstance()->lookup(senderIp);
+		if (holdBuffer != nullptr)
+		{
+			SkBuffer *buffer = nullptr;
+			while ((buffer = holdBuffer->pop()) != nullptr)
+			{
+				write(buffer);
+			}
+		}
 	}
 
 }

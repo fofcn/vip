@@ -17,5 +17,16 @@ uint ArpHoldBuffer::holdIp()
 
 void ArpHoldBuffer::enqueue(SkBuffer *skBuffer)
 {
-	bufferQueue.push_back(skBuffer);
+	bufferQueue.push(skBuffer);
+}
+
+SkBuffer *ArpHoldBuffer::pop()
+{
+	if (bufferQueue.empty())
+	{
+		return nullptr;
+	}
+	SkBuffer *buffer = bufferQueue.front();
+	bufferQueue.pop();
+	return buffer;
 }

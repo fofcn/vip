@@ -130,5 +130,7 @@ void IpHandler::write(SkBuffer *skBuffer)
 	newIpHdr->src_addr = skBuffer->skSrcAddr();
 	newIpHdr->dst_addr = skBuffer->skDstAddr();
 
+	skBuffer->setProtocol(IPV4);
+
 	prev->write(skBuffer);
 }

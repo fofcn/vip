@@ -16,6 +16,8 @@ typedef struct arp_tbl arpTbl;
 class ArpTable
 {
 public:
+
+	~ArpTable();
 	static ArpTable *getInstance();
 
 	arpTbl *get(uint ip);

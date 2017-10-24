@@ -8,10 +8,10 @@
 class Arp
 {
 public:
-	SkBuffer request(uint dstIp, uint srcIp, Device *dev, uchar *dstMac);
-	SkBuffer response(uint dstIp, uint srcIp, Device *dev, uchar *dstMac);
+	SkBuffer request(uint dstIp, uint srcIp, Device *dev, uchar *srcMac, uchar *dstMac);
+	SkBuffer response(uint dstIp, uint srcIp, Device *dev, uchar *srcMac, uchar *dstMac);
 private:
-	SkBuffer create(int type, uint dstIp, uint srcIp, Device *dev, uchar *dstMac);
+	SkBuffer create(int type, uint dstIp, uint srcIp, Device *dev, uchar *srcMac, uchar *dstMac);
 };
 
 #endif

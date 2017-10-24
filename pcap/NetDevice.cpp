@@ -61,9 +61,9 @@ void NetDevice::send(void *arg)
 
 }
 
-char *NetDevice::getMac()
+uchar *NetDevice::getMac()
 {
-	return (char*)mac;
+	return mac;
 }
 
 void NetDevice::callback(u_char *arg, const struct pcap_pkthdr *pktHdr, const u_char *packet)
