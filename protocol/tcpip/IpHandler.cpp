@@ -58,7 +58,7 @@ void IpHandler::channelRead(SkBuffer *skBuffer)
 
 	skBuffer->resetNetworkHeader();
 	ip_header *ipHdr = (ip_header *)skBuffer->skNetworkHeader();
-	skBuffer->pull(ipHdr->hl);
+	skBuffer->pull(ipHdr->hl * 4);
 
 	skBuffer->skAddr(ipHdr->src_addr, ipHdr->dst_addr);
 
