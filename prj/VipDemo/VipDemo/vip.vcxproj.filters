@@ -72,6 +72,12 @@
     <ClCompile Include="..\..\..\protocol\arp\ArpHoldBuffer.cpp">
       <Filter>protocol\arp</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\socket\api\ServerSocket.cpp">
+      <Filter>socket\api</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\socket\api\Socket.cpp">
+      <Filter>socket\api</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h" />
@@ -151,6 +157,12 @@
     <ClInclude Include="..\..\..\protocol\arp\ArpHoldBuffer.h">
       <Filter>protocol\arp</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\..\socket\api\ServerSocket.h">
+      <Filter>socket\api</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\socket\api\Socket.h">
+      <Filter>socket\api</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Text Include="ReadMe.txt" />
@@ -176,6 +188,15 @@
     </Filter>
     <Filter Include="protocol\arp">
       <UniqueIdentifier>{cc27e26c-58e6-408e-a240-0ff3ddd1a8f0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="socket">
+      <UniqueIdentifier>{1d7c8cda-849f-4909-bc29-b5632e6f1003}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="socket\api">
+      <UniqueIdentifier>{ea35ceda-bd7e-49a1-a6a0-7768bd3e4d95}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="socket\internal">
+      <UniqueIdentifier>{d7afa292-b645-44af-bde3-2ad9f87aebbe}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>
