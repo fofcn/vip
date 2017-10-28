@@ -176,8 +176,13 @@
     <ClInclude Include="..\..\..\protocol\tcpip\IcmpHandler.h" />
     <ClInclude Include="..\..\..\protocol\tcpip\IpHandler.h" />
     <ClInclude Include="..\..\..\protocol\tcpip\TcpHandler.h" />
+    <ClInclude Include="..\..\..\socket\api\InetSocketAddress.h" />
     <ClInclude Include="..\..\..\socket\api\ServerSocket.h" />
     <ClInclude Include="..\..\..\socket\api\Socket.h" />
+    <ClInclude Include="..\..\..\socket\internal\IdentifyGenerator.h" />
+    <ClInclude Include="..\..\..\socket\internal\SocketBuffer.h" />
+    <ClInclude Include="..\..\..\socket\internal\SocketInternal.h" />
+    <ClInclude Include="..\..\..\socket\internal\SockInternalManager.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="targetver.h" />
   </ItemGroup>
@@ -207,6 +212,8 @@
     <ClCompile Include="..\..\..\protocol\tcpip\TcpHandler.cpp" />
     <ClCompile Include="..\..\..\socket\api\ServerSocket.cpp" />
     <ClCompile Include="..\..\..\socket\api\Socket.cpp" />
+    <ClCompile Include="..\..\..\socket\internal\IdentifyGenerator.cpp" />
+    <ClCompile Include="..\..\..\socket\internal\SocketInternal.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>

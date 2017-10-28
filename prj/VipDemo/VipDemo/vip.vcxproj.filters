@@ -78,6 +78,12 @@
     <ClCompile Include="..\..\..\socket\api\Socket.cpp">
       <Filter>socket\api</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\socket\internal\SocketInternal.cpp">
+      <Filter>socket\internal</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\socket\internal\IdentifyGenerator.cpp">
+      <Filter>socket\internal</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h" />
@@ -162,6 +168,21 @@
     </ClInclude>
     <ClInclude Include="..\..\..\socket\api\Socket.h">
       <Filter>socket\api</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\socket\internal\SocketInternal.h">
+      <Filter>socket\internal</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\socket\internal\SocketBuffer.h">
+      <Filter>socket\internal</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\socket\internal\SockInternalManager.h">
+      <Filter>socket\internal</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\socket\api\InetSocketAddress.h">
+      <Filter>socket\api</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\socket\internal\IdentifyGenerator.h">
+      <Filter>socket\internal</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

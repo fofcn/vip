@@ -109,8 +109,6 @@ void IpHandler::channelRead(SkBuffer *skBuffer)
 	}
 }
 
-
-
 void IpHandler::write(SkBuffer *skBuffer)
 {
 	skBuffer->push(sizeof(struct ip_hdr));

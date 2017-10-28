@@ -1,19 +1,20 @@
 #include "ServerSocket.h"
 
-ServerSocket::ServerSocket(int port)
+ServerSocket::ServerSocket(std::string &ip,  int port)
 {
-	ServerSocket(port, 0);
+	ServerSocket(ip, port, 0);
 }
 
-ServerSocket::ServerSocket(int port, int backlog)
+ServerSocket::ServerSocket(std::string &ip, int port, int backlog) : ip(ip), port(port)
 {
-	ServerSocket(port, backlog, 0);
+	if (backlog <= 1)
+	{
+		backlog = 50;
+	}
+
+
 }
 
-ServerSocket::ServerSocket(int port, int backlog, int ip) : port(port), backlog(backlog)
-{
-
-}
 
 Socket ServerSocket::accept()
 {
