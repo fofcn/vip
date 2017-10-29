@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.26730.16
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "VipDemo", "VipDemo.vcxproj", "{7128E0B5-0842-40EE-9495-4830233AA70A}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "vip", "vip.vcxproj", "{7128E0B5-0842-40EE-9495-4830233AA70A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -26,6 +26,6 @@ Global
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		SolutionGuid = {A1240152-8DA0-4534-88DF-5624CE75611F}
+		SolutionGuid = {1CF2D860-7AAC-4AAF-848C-83C037DC8CF8}
 	EndGlobalSection
 EndGlobal

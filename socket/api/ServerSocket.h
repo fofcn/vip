@@ -17,6 +17,7 @@ private:
 	int port;
 	int backlog;
 	std::string ip;
+	int handle;
 };
 
 #endif

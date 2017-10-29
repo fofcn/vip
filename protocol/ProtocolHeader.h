@@ -15,6 +15,12 @@
 #define TCP 6
 #define UDP 17
 
+#define SOCK_STREAM 1
+#define SOCK_DGRAM 2
+#define SOCK_RAW 3
+#define SOCK_RDM 4
+#define SOCK_SEQPACKET 5
+
 #pragma pack(push, 1)
 
 struct ether_hdr

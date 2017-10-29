@@ -84,6 +84,9 @@
     <ClCompile Include="..\..\..\socket\internal\IdentifyGenerator.cpp">
       <Filter>socket\internal</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\socket\internal\SocketInternalManager.cpp">
+      <Filter>socket\internal</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h" />

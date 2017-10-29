@@ -8,6 +8,10 @@ class SocketInternal
 {
 public:
 	SocketInternal();
+
+	void setBacklog(int backlog);
+	void setSkType(short type);
+	void setPort(ushort port);
 private:
 	/*socket标识*/
 	int handle;
@@ -16,8 +20,7 @@ private:
 	/*端口号*/
 	ushort port;
 	/*socket类型，SOCK_STREAM等*/
-	short type;
-
+	short skType;
 	/*socekt 标记*/
 	unsigned long flags;
 

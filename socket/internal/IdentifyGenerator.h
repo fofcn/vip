@@ -6,10 +6,13 @@
 class IdentifyGenerator
 {
 public:
-	IdentifyGenerator();
+	static IdentifyGenerator *getInstance();
 	int getAndIncrement();
 private:
-	static volatile int value;
+	IdentifyGenerator();
+private:
+	static int value;
+	static IdentifyGenerator *instance;
 };
 
 #endif

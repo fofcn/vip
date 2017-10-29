@@ -1,6 +1,16 @@
 #include "IdentifyGenerator.h"
 
-volatile int IdentifyGenerator::value = 1;
+int IdentifyGenerator::value = 1;
+IdentifyGenerator *IdentifyGenerator::instance = nullptr;
+
+IdentifyGenerator *IdentifyGenerator::getInstance()
+{
+	if (instance == nullptr)
+	{
+		instance = new IdentifyGenerator();
+	}
+	return instance;
+}
 
 IdentifyGenerator::IdentifyGenerator()
 {

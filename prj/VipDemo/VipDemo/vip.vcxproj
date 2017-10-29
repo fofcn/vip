@@ -214,6 +214,7 @@
     <ClCompile Include="..\..\..\socket\api\Socket.cpp" />
     <ClCompile Include="..\..\..\socket\internal\IdentifyGenerator.cpp" />
     <ClCompile Include="..\..\..\socket\internal\SocketInternal.cpp" />
+    <ClCompile Include="..\..\..\socket\internal\SocketInternalManager.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>

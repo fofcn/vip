@@ -4,17 +4,20 @@
 #include <vector>
 #include "SocketInternal.h"
 
-class SockInternalManager 
+class SocketInternalManager 
 {
 public:
-	SockInternalManager();
+	static SocketInternalManager *getInstance();
+	void addSocketInternal(SocketInternal &skInternal);
+	SocketInternal &findSocketInternal();
 private:
-	/*半连接socket队列*/
-	std::vector<SocketInternal> partialConn;
-	/*已完成连接socket队列*/
-	std::vector<SocketInternal> incommingConn;
-	/*等待队列最大长度*/
-	int backlogLimit;
+	SocketInternalManager();
+private:
+
+	/*已经建立或正在建立连接的socket*/
+	std::vector<SocketInternal> connSocketInternals;
+
+	static SocketInternalManager *instance;
 };
 
 #endif 
