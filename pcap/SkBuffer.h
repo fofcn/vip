@@ -2,6 +2,7 @@
 #ifndef VIP_SKBUFFER_H_
 #define VIP_SKBUFFER_H_
 
+#include <memory.h>
 #include <malloc.h>
 #include "Types.h"
 #include "Device.h"
@@ -15,25 +16,35 @@ public:
 	inline void allocBuffer(unsigned int size)
 	{
 		data = (uchar *)malloc(uchar(size));
+		if (data == nullptr)
+		{
+			return;
+		}
+		memset(data, 0x0, size);
 		head = data;
 		len = size;
 	}
+
 	/**data指针后移len长度*/
 	inline void reserve(unsigned int len)
 	{
 		data += len;
-		this->len += len;
+	}
+
+	inline void put(unsigned int len)
+	{
+		dataLen += len;
 	}
 
 	inline void pull(unsigned int len)
 	{
-		this->len -= len;
+		dataLen -= len;
 		data += len;
 	}
 
 	inline void push(unsigned int len)
 	{
-		this->len += len;
+		dataLen += len;
 		data -= len;
 	}
 
@@ -73,9 +84,19 @@ public:
 		return len;
 	}
 
+	inline unsigned int skDataLen()
+	{
+		return dataLen;
+	}
+
 	inline uchar *skData()
 	{
 		return data;
+	}
+
+	inline uchar *skDataStart()
+	{
+		return head;
 	}
 
 	inline Device *skDevice()
@@ -121,8 +142,10 @@ private:
 	uchar *data;
 	//数据头
 	uchar *head;
-	//数据大小
+	//数据总长度
 	unsigned int len;
+	//每层的数据长度
+	unsigned int dataLen;
 
 	//源地址
 	uint srcAddr;

@@ -48,6 +48,16 @@ void ArpHandler::channelRead(SkBuffer *skBuffer)
 		print_ip(ntohl(arpHdr->target_ip));
 		if (NetworkCardPool::getInstance()->contains(ntohl(arpHdr->target_ip)))
 		{
+			//查看是否存在路由,不存在则添加
+			uint senderIp = ntohl(arpHdr->sender_ip);
+			arpTbl *arpTable = ArpTable::getInstance()->get(senderIp);
+			if (arpTable == nullptr)
+			{
+				arpTable = (arpTbl *)malloc(sizeof(struct arp_tbl));
+				memcpy(arpTable->mac, arpHdr->sender_mac, MAC_LEN);
+				ArpTable::getInstance()->add(senderIp, arpTable);
+			}
+
 			SkBuffer newBuffer(skBuffer->skDevice());
 			unsigned int size = ETH_ALEN + sizeof(struct arp_hdr);
 			newBuffer.allocBuffer(size);
@@ -57,22 +67,22 @@ void ArpHandler::channelRead(SkBuffer *skBuffer)
 
 			//构造ARP响应
 			arp->hw_type = htons(HW_TYPE_ETH);
-			arp->hw_size = MAC_LEN;
 			arp->proto_type = htons(IPV4);
+			arp->hw_size = MAC_LEN;
 			arp->proto_size = 4;
 			arp->op_code = htons(ARP_REPLY);
-			arp->sender_ip = arpHdr->target_ip;
 			memcpy(arp->sender_mac, skBuffer->skDevice()->getMac(), MAC_LEN);
-			arp->target_ip = arpHdr->target_ip;
+			arp->sender_ip = (arpHdr->target_ip);
 			memcpy(arp->target_mac, arpHdr->sender_mac, MAC_LEN);
-
+			arp->target_ip = (arpHdr->target_ip);
+			
 			write(&newBuffer);
 		}
 	}
 	else//ARP响应
 	{
 		//查看是否存在路由,不存在则添加
-		uint senderIp = ntohl(arpHdr->sender_ip);
+		uint senderIp = (arpHdr->sender_ip);
 		arpTbl *arpTable = ArpTable::getInstance()->get(senderIp);
 		if (arpTable == nullptr)
 		{
@@ -98,6 +108,6 @@ void ArpHandler::channelRead(SkBuffer *skBuffer)
 void ArpHandler::write(SkBuffer *skBuffer)
 {
 	arp_header *arp = (arp_header *)skBuffer->skNetworkHeader();
-	
+	skBuffer->setProtocol(ETHERNET_ARP);
 	prev->write(skBuffer);
 }

@@ -8,6 +8,10 @@ NetDevice::NetDevice(char *name) : name(name), pd(nullptr), initialized(false), 
 {
 	pipeline = new DefaultPacketChannelPipeline();
 	
+	//for home
+	//char testMac[] = { 0x94, 0xDE, 0x80, 0xFF, 0x39, 0x74 };
+
+	//for outside
 	char testMac[] = { 0x94, 0xDE, 0x80, 0xFF, 0x39, 0x74 };
 	for (int i = 0; i < MAC_LEN; i++)
 	{

@@ -1,20 +1,17 @@
 #include "SkBuffer.h"
 
-SkBuffer::SkBuffer(Device *dev)
+SkBuffer::SkBuffer(Device *dev) : SkBuffer(nullptr, 0, dev)
 {
-	data = nullptr;
-	head = nullptr;
-	macHeader = nullptr;
-	networkHeader = nullptr;
-	transportHeader = nullptr;
-
-	this->dev = dev;
+	
 }
 
-SkBuffer::SkBuffer(uchar *data, unsigned int len, Device *dev)
+SkBuffer::SkBuffer(uchar *data, unsigned int len, Device *dev) : dev(dev)
 {
 	this->data = data;
 	this->len = len;
+	dataLen = len;
 	head = data;
-	this->dev = dev;
+	macHeader = nullptr;
+	networkHeader = nullptr;
+	transportHeader = nullptr;
 }

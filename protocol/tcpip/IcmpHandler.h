@@ -14,6 +14,8 @@ public:
 	virtual bool init();
 	virtual void channelRead(SkBuffer *skBuffer);
 	virtual void write(SkBuffer *skBuffer);
+
+	ushort checksum(ushort *buffer, int size);
 private:
 	PacketChannelHandler *prev;
 };

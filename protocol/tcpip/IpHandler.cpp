@@ -13,6 +13,7 @@ extern PacketChannelHandler *ethHandler;
 
 IpHandler::IpHandler() : PacketChannelHandler("IP")
 {
+	prev = ethHandler;
 }
 
 
@@ -116,8 +117,8 @@ void IpHandler::write(SkBuffer *skBuffer)
 	ip_header *newIpHdr = (ip_header *)skBuffer->skNetworkHeader();
 	
 	newIpHdr->version = 4;
-	newIpHdr->hl = sizeof(newIpHdr);
-	newIpHdr->tot_len = skBuffer->skLen();
+	newIpHdr->hl = sizeof(struct ip_hdr) >> 2;
+	newIpHdr->tot_len = htons(skBuffer->skDataLen());
 	newIpHdr->tos = 0;
 	newIpHdr->id = 1024;
 	newIpHdr->flags = 0;

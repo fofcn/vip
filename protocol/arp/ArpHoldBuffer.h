@@ -1,7 +1,7 @@
 #ifndef VIP_ARPHOLDBUFFER_H_
 #define VIP_ARPHOLDBUFFER_H_
 
-#include <queue>
+#include <vector>
 #include "pcap/SkBuffer.h"
 
 class ArpHoldBuffer
@@ -13,7 +13,7 @@ public:
 	void enqueue(SkBuffer *skBuffer);
 	SkBuffer *pop();
 private:
-	std::queue<SkBuffer *> bufferQueue;
+	std::vector<SkBuffer *> bufferQueue;
 	uint ip;
 };
 
