@@ -54,9 +54,11 @@ void IcmpHandler::write(SkBuffer *oldSkBuffer)
 	icmpReply->code = 0;
 	icmpReply->check_sum = 0;
 	icmpReply->id = old->id;
-	icmpReply->seq_num = old->seq_num + 1;
+	icmpReply->seq_num = old->seq_num;
 	icmpReply->check_sum = checksum((ushort *)icmpReply, totalLen - (sizeof(struct ip_hdr) + ETH_ALEN));
 
+	//增加数据
+	//memcpy(icmpReply + sizeof(struct icmp_hdr), old + sizeof(icmp_hdr), oldSkBuffer->skDataLen());
 	prev->write(newBuffer);
 }
 

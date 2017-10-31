@@ -13,6 +13,9 @@ NetDevice::NetDevice(char *name) : name(name), pd(nullptr), initialized(false), 
 
 	//for outside
 	char testMac[] = { 0x94, 0xDE, 0x80, 0xFF, 0x39, 0x74 };
+
+	//for virtual card
+	//char testMac[] = { 0x0A, 0x00, 0x27, 0x00, 0x00, 0x04 };
 	for (int i = 0; i < MAC_LEN; i++)
 	{
 		mac[i] = testMac[i];
@@ -28,6 +31,8 @@ NetDevice::~NetDevice()
 	}
 }
 
+extern uchar etherBroadcastAddr[];
+uchar routerMacAddr[] = { 0xb0, 0x95, 0x8e, 0xb0, 0x1a, 0xcb };
 void NetDevice::startCapture()
 {
 	int status;
@@ -38,6 +43,17 @@ void NetDevice::startCapture()
 		return;
 	}
 
+	u_long ip = ntohl(inet_addr("192.168.2.220"));
+	u_long routerIp = ntohl(inet_addr("192.168.2.1"));
+	Arp arp;
+	SkBuffer buf = arp.response(routerIp, ip, this, this->mac, routerMacAddr);
+	buf.push(ETH_ALEN);
+	buf.resetMacHeader();
+	ether_header *eth = (ether_header *)buf.skMacHeader();
+	memcpy(eth->ether_dhost, routerMacAddr, MAC_LEN);
+	memcpy(eth->ether_shost, this->mac, MAC_LEN);
+	eth->ether_type = htons(ETHERNET_ARP);
+	this->send(&buf);
 	while (!stopped)
 	{
 		status = pcap_dispatch(pd, 0, NetDevice::callback, (u_char *)this);

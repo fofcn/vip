@@ -74,7 +74,7 @@ void ArpHandler::channelRead(SkBuffer *skBuffer)
 			memcpy(arp->sender_mac, skBuffer->skDevice()->getMac(), MAC_LEN);
 			arp->sender_ip = (arpHdr->target_ip);
 			memcpy(arp->target_mac, arpHdr->sender_mac, MAC_LEN);
-			arp->target_ip = (arpHdr->target_ip);
+			arp->target_ip = (arpHdr->sender_ip);
 			
 			write(&newBuffer);
 		}

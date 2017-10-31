@@ -5,11 +5,14 @@
 #include "EthernetHandler.h"
 #include "IcmpHandler.h"
 #include "protocol/ProtocolHeader.h"
+#include "ip/NetworkCardPool.h"
 
 PacketChannelHandler *tcpHandler = new TcpHandler();
 PacketChannelHandler *icmpHandler = new IcmpHandler();
 
 extern PacketChannelHandler *ethHandler;
+
+int IpHandler::identification = 1;
 
 IpHandler::IpHandler() : PacketChannelHandler("IP")
 {
@@ -55,26 +58,30 @@ void print_ip(int ip)
 
 void IpHandler::channelRead(SkBuffer *skBuffer)
 {
-	//std::cout << "Internet Protocol!" << std::endl;
-
 	skBuffer->resetNetworkHeader();
 	ip_header *ipHdr = (ip_header *)skBuffer->skNetworkHeader();
 	skBuffer->pull(ipHdr->hl * 4);
 
 	skBuffer->skAddr(ipHdr->src_addr, ipHdr->dst_addr);
 
+	ipHdr->dst_addr = ntohl(ipHdr->dst_addr);
+
+	//过滤非IP池数据包
+	if (!NetworkCardPool::getInstance()->contains(ipHdr->dst_addr))
+	{
+		next = nullptr;
+		return;
+	}
+
 	switch(ipHdr->protocol)
 	{
 	case TCP:
-		//std::cout << "TCP protocol" << std::endl;
 		this->next = tcpHandler;
 		break;
 	case ICMP:
-		//std::cout << "ICMP protocol" << std::endl;
 		this->next = icmpHandler;
 		break;
 	case UDP:
-		//std::cout << "UDP protocol" << std::endl;
 		break;
 	}
 
@@ -120,7 +127,7 @@ void IpHandler::write(SkBuffer *skBuffer)
 	newIpHdr->hl = sizeof(struct ip_hdr) >> 2;
 	newIpHdr->tot_len = htons(skBuffer->skDataLen());
 	newIpHdr->tos = 0;
-	newIpHdr->id = 1024;
+	newIpHdr->id = identification ++;
 	newIpHdr->flags = 0;
 	newIpHdr->frag_off = 0;
 	newIpHdr->ttl = 64;
@@ -129,6 +136,7 @@ void IpHandler::write(SkBuffer *skBuffer)
 	newIpHdr->src_addr = skBuffer->skSrcAddr();
 	newIpHdr->dst_addr = skBuffer->skDstAddr();
 
+	newIpHdr->check_sum = IcmpHandler::checksum((ushort *)newIpHdr, newIpHdr->hl);
 	skBuffer->setProtocol(IPV4);
 
 	prev->write(skBuffer);

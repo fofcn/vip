@@ -15,6 +15,8 @@ public:
 
 	virtual void channelRead(SkBuffer *skBuffer);
 	virtual void write(SkBuffer *skBuffer);
+private:
+	static int identification;
 };
 
 #endif

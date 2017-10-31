@@ -86,12 +86,31 @@ struct tcp_hdr
 	//如果是SYN，则为ISN
 	//第一个数据为ISN+1
 	uint seq_num;
-	//
+	//ack序列号
 	uint ack_num;
 
-	ushort data_off : 4;
-	ushort reserved : 6;
-	ushort ctl_bit : 6;
+#if __BYTE_ORDER == __LITTLE_ENDIAN
+	unsigned short	res1 : 4,
+		doff : 4,
+		fin : 1,
+		syn : 1,
+		rst : 1,
+		psh : 1,
+		ack : 1,
+		urg : 1,
+		res2 : 2;
+#elif __BYTE_ORDER == __BIG_ENDIAN
+	__u16	doff : 4,
+		res1 : 4,
+		cwr : 1,
+		ece : 1,
+		urg : 1,
+		ack : 1,
+		psh : 1,
+		rst : 1,
+		syn : 1,
+		fin : 1;
+#endif
 
 	ushort win;
 

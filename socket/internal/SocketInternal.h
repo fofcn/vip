@@ -12,6 +12,11 @@ public:
 	void setBacklog(int backlog);
 	void setSkType(short type);
 	void setPort(ushort port);
+	inline ushort getPort()
+	{
+		return port;
+	}
+	void enqueueRecvBuffer(SkBuffer *skBuffer);
 private:
 	/*socket标识*/
 	int handle;
@@ -25,10 +30,10 @@ private:
 	unsigned long flags;
 
 	/*消息接受队列*/
-	SocketBuffer skRecvQueue;
+	std::vector<SkBuffer *> skRecvQueue;
 
 	/*消息发送队列*/
-	SocketBuffer skTxQueue;
+	std::vector<SkBuffer *> skTxQueue;
 
 	/*半连接socket队列*/
 	std::vector<SocketInternal> partialConn;

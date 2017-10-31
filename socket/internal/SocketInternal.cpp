@@ -20,3 +20,8 @@ void SocketInternal::setPort(ushort port)
 {
 	this->port = port;
 }
+
+void SocketInternal::enqueueRecvBuffer(SkBuffer *skBuffer)
+{
+	skRecvQueue.push_back(skBuffer);
+}

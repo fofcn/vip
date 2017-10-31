@@ -21,3 +21,16 @@ void SocketInternalManager::addSocketInternal(SocketInternal &skInternal)
 {
 	connSocketInternals.push_back(skInternal);
 }
+
+SocketInternal *SocketInternalManager::findSocketInternalByPort(ushort port)
+{
+	for (int i = 0; i < connSocketInternals.size(); i++)
+	{
+		if (connSocketInternals[i].getPort() == port)
+		{
+			return &connSocketInternals[i];
+		}
+	}
+
+	return nullptr;
+}

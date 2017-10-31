@@ -9,7 +9,7 @@ class SocketInternalManager
 public:
 	static SocketInternalManager *getInstance();
 	void addSocketInternal(SocketInternal &skInternal);
-	SocketInternal &findSocketInternal();
+	SocketInternal *findSocketInternalByPort(ushort port);
 private:
 	SocketInternalManager();
 private:
