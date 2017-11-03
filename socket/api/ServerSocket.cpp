@@ -20,8 +20,8 @@ ServerSocket::ServerSocket(std::string &ip, int port, int backlog) : ip(ip), por
 	SocketInternal newSkInternal;
 	newSkInternal.setBacklog(backlog);
 	newSkInternal.setSkType(SOCK_STREAM);
-	newSkInternal.setPort((ushort)port);
-	SocketInternalManager::getInstance()->addSocketInternal(newSkInternal);
+	newSkInternal.setSrcPort((ushort)port);
+	SocketInternalManager::getInstance()->addConnSocketInternal(newSkInternal);
 
 	//°ó¶¨¶Ë¿Ú
 

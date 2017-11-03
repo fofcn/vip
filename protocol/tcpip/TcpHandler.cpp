@@ -43,11 +43,26 @@ void TcpHandler::channelRead(SkBuffer *skBuffer)
 
 	}
 	//获取socket
-	SocketInternal *skInternal = SocketInternalManager::getInstance()->findSocketInternalByPort(tcpHdr->dst_port);
+
+	//首先根据端口查找socket
+	ip_header *ipHdr = (ip_header *)skBuffer->skNetworkHeader();
+	//首先查找非listen socket
+	SocketInternal *skInternal = SocketInternalManager::getInstance()->findConnSocketInternal(ipHdr->dst_addr, tcpHdr->dst_port, ipHdr->src_addr, tcpHdr->src_port);
 	if (skInternal == nullptr)
 	{
-		return;//不存在，丢弃包
+		//查找listen socket
+		skInternal = SocketInternalManager::getInstance()->findListenSocketInternal(ipHdr->dst_addr, tcpHdr->dst_port);
+		if (skInternal == nullptr)
+		{
+			//TODO 删除skBuffer
+			return;
+		}
 	}
+
+	//新建一个socketInternal
+	SocketInternal newConn;
+	newConn.setListenSocket(skInternal);
+	SocketInternalManager::getInstance()->addConnSocketInternal(newConn);
 
 	skInternal->enqueueRecvBuffer(skBuffer);
 }

@@ -4,6 +4,7 @@
 SocketInternal::SocketInternal()
 {
 	handle = IdentifyGenerator::getInstance()->getAndIncrement();
+	listenSocket = nullptr;
 }
 
 void SocketInternal::setBacklog(int backlog)
@@ -16,9 +17,9 @@ void SocketInternal::setSkType(short skType)
 	this->skType = skType;
 }
 
-void SocketInternal::setPort(ushort port)
+void SocketInternal::setSrcPort(ushort port)
 {
-	this->port = port;
+	this->srcPort = port;
 }
 
 void SocketInternal::enqueueRecvBuffer(SkBuffer *skBuffer)

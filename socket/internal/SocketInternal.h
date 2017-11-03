@@ -11,21 +11,59 @@ public:
 
 	void setBacklog(int backlog);
 	void setSkType(short type);
-	void setPort(ushort port);
-	inline ushort getPort()
+	void setSrcPort(ushort port);
+	inline ushort getSrcPort()
 	{
-		return port;
+		return srcPort;
+	}
+	inline void setSrcIp(uint srcIp)
+	{
+		this->srcIp = srcIp;
+	}
+	inline uint getSrcIp()
+	{
+		return srcIp;
+	}
+	inline void setDstPort(ushort dstPort)
+	{
+		this->dstPort = dstPort;
+	}
+	inline ushort getDstPort()
+	{
+		return dstPort;
+	}
+	inline void setDstIp(uint dstIp)
+	{
+		this->dstIp = dstIp;
+	}
+	inline uint getDstIp()
+	{
+		return dstIp;
+	}
+	inline void setListenSocket(SocketInternal *listenSocket)
+	{
+		this->listenSocket = listenSocket;
 	}
 	void enqueueRecvBuffer(SkBuffer *skBuffer);
 private:
 	/*socket标识*/
 	int handle;
+
 	/*ip地址*/
-	int ip;
+	uint srcIp;
+
 	/*端口号*/
-	ushort port;
+	ushort srcPort;
+
+	/*目的IP*/
+	uint dstIp;
+
+	/*目的端口*/
+	ushort dstPort;
+
 	/*socket类型，SOCK_STREAM等*/
 	short skType;
+
 	/*socekt 标记*/
 	unsigned long flags;
 
@@ -43,6 +81,9 @@ private:
 
 	/*等待队列最大长度*/
 	int backlogLimit;
+
+	/*监听socket*/
+	SocketInternal *listenSocket;
 };
 
 #endif
