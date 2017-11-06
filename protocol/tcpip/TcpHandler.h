@@ -15,6 +15,8 @@ public:
 	virtual bool init();
 	virtual void channelRead(SkBuffer *skBuffer);
 	virtual void write(SkBuffer *skBuffer);
+private:
+	void sendReset(SkBuffer *skBuffer);
 };
 
 #endif

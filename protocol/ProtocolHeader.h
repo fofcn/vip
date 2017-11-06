@@ -12,7 +12,7 @@
 #define IPV4 (0x0800)
 #define ETHERNET_ARP (0x0806)
 
-#define TCP 6
+#define TCP_V4 6
 #define UDP 17
 
 #define SOCK_STREAM 1
@@ -92,12 +92,12 @@ struct tcp_hdr
 #if __BYTE_ORDER == __LITTLE_ENDIAN
 	unsigned short	res1 : 4,
 		doff : 4,
-		fin : 1,
-		syn : 1,
-		rst : 1,
-		psh : 1,
-		ack : 1,
-		urg : 1,
+		fin : 1, //无数据传输
+		syn : 1,//syn
+		rst : 1,//重置连接
+		psh : 1,//
+		ack : 1,//确认
+		urg : 1,//
 		res2 : 2;
 #elif __BYTE_ORDER == __BIG_ENDIAN
 	__u16	doff : 4,

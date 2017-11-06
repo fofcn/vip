@@ -1,4 +1,5 @@
 
+#include <winsock2.h>
 #include "ServerSocket.h"
 #include "protocol/ProtocolHeader.h"
 #include "socket/internal/SocketInternal.h"
@@ -16,12 +17,14 @@ ServerSocket::ServerSocket(std::string &ip, int port, int backlog) : ip(ip), por
 		backlog = 50;
 	}
 
+	int srcIp = ntohl(inet_addr(ip.c_str()));
 	//新建socket
 	SocketInternal newSkInternal;
 	newSkInternal.setBacklog(backlog);
 	newSkInternal.setSkType(SOCK_STREAM);
 	newSkInternal.setSrcPort((ushort)port);
-	SocketInternalManager::getInstance()->addConnSocketInternal(newSkInternal);
+	newSkInternal.setSrcIp(srcIp);
+	SocketInternalManager::getInstance()->addListenSocketInternal(newSkInternal);
 
 	//绑定端口
 

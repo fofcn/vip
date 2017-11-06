@@ -187,6 +187,9 @@
     <ClInclude Include="..\..\..\socket\internal\IdentifyGenerator.h">
       <Filter>socket\internal</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\..\protocol\enums\TcpState.h">
+      <Filter>protocol\enums</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Text Include="ReadMe.txt" />
@@ -221,6 +224,9 @@
     </Filter>
     <Filter Include="socket\internal">
       <UniqueIdentifier>{d7afa292-b645-44af-bde3-2ad9f87aebbe}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="protocol\enums">
+      <UniqueIdentifier>{80b160fb-2903-43ed-86c9-a4c68f58031d}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

@@ -6,6 +6,7 @@
 #include "IcmpHandler.h"
 #include "protocol/ProtocolHeader.h"
 #include "ip/NetworkCardPool.h"
+#include "protocol/arp/ArpTable.h"
 
 PacketChannelHandler *tcpHandler = new TcpHandler();
 PacketChannelHandler *icmpHandler = new IcmpHandler();
@@ -65,6 +66,7 @@ void IpHandler::channelRead(SkBuffer *skBuffer)
 	skBuffer->skAddr(ipHdr->src_addr, ipHdr->dst_addr);
 
 	ipHdr->dst_addr = ntohl(ipHdr->dst_addr);
+	ipHdr->src_addr = ntohl(ipHdr->src_addr);
 
 	//过滤非IP池数据包
 	if (!NetworkCardPool::getInstance()->contains(ipHdr->dst_addr))
@@ -73,9 +75,18 @@ void IpHandler::channelRead(SkBuffer *skBuffer)
 		return;
 	}
 
+	//将MAC地址添加到路由表
+	if (ArpTable::getInstance()->get(ipHdr->src_addr))
+	{
+		ether_header *ethHdr = (ether_header *)skBuffer->skMacHeader();
+		arpTbl *newTbl = (arp_tbl *)malloc(sizeof(struct arp_tbl));
+		memcpy(newTbl->mac, ethHdr->ether_shost, MAC_LEN);
+		ArpTable::getInstance()->add(ipHdr->src_addr, newTbl);
+	}
+
 	switch(ipHdr->protocol)
 	{
-	case TCP:
+	case TCP_V4:
 		this->next = tcpHandler;
 		break;
 	case ICMP:
@@ -119,7 +130,6 @@ void IpHandler::channelRead(SkBuffer *skBuffer)
 
 void IpHandler::write(SkBuffer *skBuffer)
 {
-	skBuffer->push(sizeof(struct ip_hdr));
 	skBuffer->resetNetworkHeader();
 	ip_header *newIpHdr = (ip_header *)skBuffer->skNetworkHeader();
 	

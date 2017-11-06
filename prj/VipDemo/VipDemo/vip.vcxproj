@@ -173,6 +173,7 @@
     <ClInclude Include="..\..\..\protocol\arp\ArpHold.h" />
     <ClInclude Include="..\..\..\protocol\arp\ArpHoldBuffer.h" />
     <ClInclude Include="..\..\..\protocol\arp\ArpTable.h" />
+    <ClInclude Include="..\..\..\protocol\enums\TcpState.h" />
     <ClInclude Include="..\..\..\protocol\ProtocolHeader.h" />
     <ClInclude Include="..\..\..\protocol\tcpip\ArpHandler.h" />
     <ClInclude Include="..\..\..\protocol\tcpip\EthernetHandler.h" />

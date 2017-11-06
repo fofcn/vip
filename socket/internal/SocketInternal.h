@@ -3,6 +3,7 @@
 
 #include "Types.h"
 #include "SocketBuffer.h"
+#include "protocol/enums/TcpState.h"
 
 class SocketInternal
 {
@@ -84,6 +85,9 @@ private:
 
 	/*¼àÌýsocket*/
 	SocketInternal *listenSocket;
+
+	/*tcp µ±Ç°×´Ì¬*/
+	int skState;
 };
 
 #endif
