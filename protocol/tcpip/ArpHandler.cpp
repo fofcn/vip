@@ -62,6 +62,7 @@ void ArpHandler::channelRead(SkBuffer *skBuffer)
 			unsigned int size = ETH_ALEN + sizeof(struct arp_hdr);
 			newBuffer.allocBuffer(size);
 			newBuffer.reserve(ETH_ALEN);
+			newBuffer.put(sizeof(struct arp_hdr));
 			newBuffer.resetNetworkHeader();
 			arp_header *arp = (arp_header *)newBuffer.skNetworkHeader();
 

@@ -45,6 +45,18 @@ public:
 	{
 		this->listenSocket = listenSocket;
 	}
+	inline void setSkState(int state)
+	{
+		this->skState = state;
+	}
+	inline int getSkState()
+	{
+		return skState;
+	}
+	inline void addParitialConn(SocketInternal paritialSocket)
+	{
+		partialConn.push_back(paritialSocket);
+	}
 	void enqueueRecvBuffer(SkBuffer *skBuffer);
 private:
 	/*socket±Í ∂*/

@@ -1,3 +1,4 @@
+#include <WinSock2.h>
 #include "IcmpHandler.h"
 #include "IpHandler.h"
 #include "protocol/ProtocolHeader.h"
@@ -38,6 +39,7 @@ void IcmpHandler::channelRead(SkBuffer *skBuffer)
 void IcmpHandler::write(SkBuffer *oldSkBuffer)
 {
 	icmp_header *old = (icmp_header *)oldSkBuffer->skTransportHeader();
+	ip_header *srcIpHdr = (ip_header *)oldSkBuffer->skNetworkHeader();
 
 	SkBuffer *newBuffer = new SkBuffer(oldSkBuffer->skDevice());
 	newBuffer->setProtocol(ICMP);
@@ -60,6 +62,8 @@ void IcmpHandler::write(SkBuffer *oldSkBuffer)
 	newBuffer->push(sizeof(struct ip_hdr));
 	newBuffer->resetNetworkHeader();
 	ip_header *newIpHdr = (ip_header *)newBuffer->skNetworkHeader();
+	newIpHdr->src_addr = htonl(srcIpHdr->dst_addr);
+	newIpHdr->dst_addr = htonl(srcIpHdr->src_addr);
 	//增加数据
 	//memcpy(icmpReply + sizeof(struct icmp_hdr), old + sizeof(icmp_hdr), oldSkBuffer->skDataLen());
 	prev->write(newBuffer);

@@ -5,6 +5,7 @@
 #include "protocol/ProtocolHeader.h"
 #include "socket/internal/SocketInternal.h"
 #include "socket/internal/SockInternalManager.h"
+#include "protocol/enums/TcpState.h"
 
 extern PacketChannelHandler *ipHandler;
 
@@ -63,6 +64,7 @@ void TcpHandler::channelRead(SkBuffer *skBuffer)
 		}
 	}
 
+	
 	//测试发送reset
 	skInternal = nullptr;
 	if(skInternal == nullptr)
@@ -71,17 +73,55 @@ void TcpHandler::channelRead(SkBuffer *skBuffer)
 		return sendReset(skBuffer);
 	}
 
-	//新建一个socketInternal
-	SocketInternal newConn;
-	newConn.setListenSocket(skInternal);
-	SocketInternalManager::getInstance()->addConnSocketInternal(newConn);
+	if (skInternal->getSkState() == TCP_ESTABLISHED)
+	{
+		//处理established状态的数据包
+		//tcpRecvEstablished();
+		return;
+	}
+
+	if (skInternal->getSkState() == TCP_LISTEN)
+	{
+
+	}
+	
+	if (tcpHdr->syn)
+	{
+		//新建一个socketInternal，放入半连接队列
+		SocketInternal paritialSocket;
+		paritialSocket.setSkState(TCP_SYN_RECV);
+		paritialSocket.setListenSocket(skInternal);
+		skInternal->addParitialConn(paritialSocket);
+	}
+
+	
 
 	skInternal->enqueueRecvBuffer(skBuffer);
 }
 
+int tcpRevcStateProcess(SkBuffer *skBuffer, SocketInternal *skInternal)
+{
+	switch (skInternal->getSkState())
+	{
+	case TCP_CLOSE:
+		//TODO释放数据包
+
+		break;
+	case TCP_LISTEN:
+		break;
+		default:
+	}
+}
+
+//TODO 释放skbuffer空间
 void TcpHandler::sendReset(SkBuffer *skBuffer)
 {
 	tcp_header *tcpHdr = (tcp_header *)skBuffer->skTransportHeader();
+
+	if (tcpHdr->doff < sizeof(struct tcp_hdr))
+	{
+		return;
+	}
 	
 	//如果当前为重置
 	if (tcpHdr->rst)

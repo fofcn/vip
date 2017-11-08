@@ -143,8 +143,6 @@ void IpHandler::write(SkBuffer *skBuffer)
 	newIpHdr->ttl = 64;
 	newIpHdr->protocol = skBuffer->skProtocol();
 	newIpHdr->check_sum = 0;
-	newIpHdr->src_addr = skBuffer->skSrcAddr();
-	newIpHdr->dst_addr = skBuffer->skDstAddr();
 
 	newIpHdr->check_sum = IcmpHandler::checksum((ushort *)newIpHdr, newIpHdr->hl);
 	skBuffer->setProtocol(IPV4);
