@@ -15,19 +15,19 @@
       <Filter>ip</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\protocol\tcpip\ArpHandler.cpp">
-      <Filter>protocol\tcpip</Filter>
+      <Filter>protocol\handler</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\protocol\tcpip\EthernetHandler.cpp">
-      <Filter>protocol\tcpip</Filter>
+      <Filter>protocol\handler</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\protocol\tcpip\IcmpHandler.cpp">
-      <Filter>protocol\tcpip</Filter>
+      <Filter>protocol\handler</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\protocol\tcpip\IpHandler.cpp">
-      <Filter>protocol\tcpip</Filter>
+      <Filter>protocol\handler</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\protocol\tcpip\TcpHandler.cpp">
-      <Filter>protocol\tcpip</Filter>
+      <Filter>protocol\handler</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\handler\AbstractPacketChannelHandlerContext.cpp">
       <Filter>common</Filter>
@@ -110,19 +110,19 @@
       <Filter>protocol</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\protocol\tcpip\ArpHandler.h">
-      <Filter>protocol\tcpip</Filter>
+      <Filter>protocol\handler</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\protocol\tcpip\EthernetHandler.h">
-      <Filter>protocol\tcpip</Filter>
+      <Filter>protocol\handler</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\protocol\tcpip\IcmpHandler.h">
-      <Filter>protocol\tcpip</Filter>
+      <Filter>protocol\handler</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\protocol\tcpip\IpHandler.h">
-      <Filter>protocol\tcpip</Filter>
+      <Filter>protocol\handler</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\protocol\tcpip\TcpHandler.h">
-      <Filter>protocol\tcpip</Filter>
+      <Filter>protocol\handler</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\handler\AbstractPacketChannelHandlerContext.h">
       <Filter>common</Filter>
@@ -187,8 +187,12 @@
     <ClInclude Include="..\..\..\socket\internal\IdentifyGenerator.h">
       <Filter>socket\internal</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\protocol\enums\TcpState.h">
+    <ClInclude Include="..\..\..\protocol\tcp\TcpStateProcess.h" />
+    <ClInclude Include="..\..\..\protocol\enums\TcpStateDef.h">
       <Filter>protocol\enums</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\protocol\tcp\TcpState.h">
+      <Filter>protocol\tcp</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -207,9 +211,6 @@
     <Filter Include="protocol">
       <UniqueIdentifier>{83a8bd74-7ecc-42e1-898f-465391d7db9f}</UniqueIdentifier>
     </Filter>
-    <Filter Include="protocol\tcpip">
-      <UniqueIdentifier>{2e8981fb-5285-4886-b3f9-e2348b080df9}</UniqueIdentifier>
-    </Filter>
     <Filter Include="common">
       <UniqueIdentifier>{7efe6c9b-9420-4f86-a159-ed8bc2fd6cd0}</UniqueIdentifier>
     </Filter>
@@ -227,6 +228,12 @@
     </Filter>
     <Filter Include="protocol\enums">
       <UniqueIdentifier>{80b160fb-2903-43ed-86c9-a4c68f58031d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="protocol\tcp">
+      <UniqueIdentifier>{8e9d39d8-a6f9-468d-bdb7-b3aa3263f53f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="protocol\handler">
+      <UniqueIdentifier>{2e8981fb-5285-4886-b3f9-e2348b080df9}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

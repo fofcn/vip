@@ -3,7 +3,7 @@
 
 #include "Types.h"
 #include "SocketBuffer.h"
-#include "protocol/enums/TcpState.h"
+#include "protocol/tcp/TcpState.h"
 
 class SocketInternal
 {
@@ -57,6 +57,11 @@ public:
 	{
 		partialConn.push_back(paritialSocket);
 	}
+
+	inline void setTcpState(TcpState *state)
+	{
+		tcpState = state;
+	}
 	void enqueueRecvBuffer(SkBuffer *skBuffer);
 private:
 	/*socket标识*/
@@ -100,6 +105,8 @@ private:
 
 	/*tcp 当前状态*/
 	int skState;
+
+	TcpState *tcpState;
 };
 
 #endif
