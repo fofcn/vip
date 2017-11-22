@@ -63,6 +63,8 @@ public:
 		tcpState = state;
 	}
 	void enqueueRecvBuffer(SkBuffer *skBuffer);
+	
+	void processTcpState(SkBuffer *skBuffer);
 private:
 	/*socket±Í ∂*/
 	int handle;

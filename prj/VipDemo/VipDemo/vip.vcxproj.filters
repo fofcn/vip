@@ -87,6 +87,15 @@
     <ClCompile Include="..\..\..\socket\internal\SocketInternalManager.cpp">
       <Filter>socket\internal</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\protocol\tcp\TcpCloseState.cpp">
+      <Filter>protocol\tcp</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\protocol\tcp\TcpListenState.cpp">
+      <Filter>protocol\tcp</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\protocol\tcp\TcpState.cpp">
+      <Filter>protocol\tcp</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h" />
@@ -187,11 +196,22 @@
     <ClInclude Include="..\..\..\socket\internal\IdentifyGenerator.h">
       <Filter>socket\internal</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\protocol\tcp\TcpStateProcess.h" />
     <ClInclude Include="..\..\..\protocol\enums\TcpStateDef.h">
       <Filter>protocol\enums</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\protocol\tcp\TcpState.h">
+      <Filter>protocol\tcp</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\protocol\tcp\TcpStateProcess.h">
+      <Filter>protocol\tcp</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\protocol\tcp\TcpCloseState.h">
+      <Filter>protocol\tcp</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\protocol\tcp\TcpListenState.h">
+      <Filter>protocol\tcp</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\protocol\tcp\Tcb.h">
       <Filter>protocol\tcp</Filter>
     </ClInclude>
   </ItemGroup>

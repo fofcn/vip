@@ -1,5 +1,6 @@
 #include "SocketInternal.h"
 #include "IdentifyGenerator.h"
+#include "protocol/ProtocolHeader.h"
 
 SocketInternal::SocketInternal()
 {
@@ -25,4 +26,14 @@ void SocketInternal::setSrcPort(ushort port)
 void SocketInternal::enqueueRecvBuffer(SkBuffer *skBuffer)
 {
 	skRecvQueue.push_back(skBuffer);
+}
+
+
+void SocketInternal::processTcpState(SkBuffer *skBuffer)
+{
+	tcp_header *tcpHdr = (tcp_header *)skBuffer->skTransportHeader();
+	if (tcpHdr->syn)
+	{
+		tcpState->recvSyn(skBuffer);
+	}
 }

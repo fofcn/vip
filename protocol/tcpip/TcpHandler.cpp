@@ -33,6 +33,8 @@ void TcpHandler::channelRead(SkBuffer *skBuffer)
 	
 
 	//TODO TCP头部校验
+
+
 	if (tcpHdr->syn)
 	{
 		std::cout << "Source port: " << (tcpHdr->src_port) << ", destination port: " << (tcpHdr->dst_port) << std::endl;
@@ -49,27 +51,16 @@ void TcpHandler::channelRead(SkBuffer *skBuffer)
 	}
 	//获取socket
 
-	//首先根据端口查找socket
+	//首先根据端口查找socket, 查找非listen socket
 	ip_header *ipHdr = (ip_header *)skBuffer->skNetworkHeader();
-	//首先查找非listen socket
-	SocketInternal *skInternal = SocketInternalManager::getInstance()->findConnSocketInternal(ipHdr->dst_addr, tcpHdr->dst_port, ipHdr->src_addr, tcpHdr->src_port);
-	if (skInternal == nullptr)
-	{
-		//查找listen socket
-		skInternal = SocketInternalManager::getInstance()->findListenSocketInternal(ipHdr->dst_addr, tcpHdr->dst_port);
-		if (skInternal == nullptr)
-		{
-			//TODO 删除skBuffer
-			return;
-		}
-	}
-
 	
-	//测试发送reset
-	skInternal = nullptr;
+	SocketInternal *skInternal = SocketInternalManager::getInstance()->findEstablishedSocket(ipHdr->dst_addr, tcpHdr->dst_port, ipHdr->src_addr, tcpHdr->src_port);
+	skInternal = skInternal ? skInternal : SocketInternalManager::getInstance()->findTimewaitSocket(ipHdr->dst_addr, tcpHdr->dst_port, ipHdr->src_addr, tcpHdr->src_port);
+	skInternal = skInternal ? skInternal : SocketInternalManager::getInstance()->findListenSocketInternal(ipHdr->dst_addr, tcpHdr->dst_port);
 	if(skInternal == nullptr)
 	{
-		//发送TCP reset
+		//发送TCP reset,
+		//TODO 并释放包空间
 		return sendReset(skBuffer);
 	}
 

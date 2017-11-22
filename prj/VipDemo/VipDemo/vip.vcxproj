@@ -180,10 +180,12 @@
     <ClInclude Include="..\..\..\protocol\tcpip\IcmpHandler.h" />
     <ClInclude Include="..\..\..\protocol\tcpip\IpHandler.h" />
     <ClInclude Include="..\..\..\protocol\tcpip\TcpHandler.h" />
+    <ClInclude Include="..\..\..\protocol\tcp\Tcb.h" />
     <ClInclude Include="..\..\..\protocol\tcp\TcpCloseState.h" />
     <ClInclude Include="..\..\..\protocol\tcp\TcpListenState.h" />
     <ClInclude Include="..\..\..\protocol\tcp\TcpState.h" />
     <ClInclude Include="..\..\..\protocol\tcp\TcpStateProcess.h" />
+    <ClInclude Include="..\..\..\protocol\tcp\TcpSynSentState.h" />
     <ClInclude Include="..\..\..\socket\api\InetSocketAddress.h" />
     <ClInclude Include="..\..\..\socket\api\ServerSocket.h" />
     <ClInclude Include="..\..\..\socket\api\Socket.h" />

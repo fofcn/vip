@@ -1,4 +1,6 @@
 #include "TcpCloseState.h"
+#include "TcpListenState.h"
+#include "TcpSynSentState.h"
 
 TcpCloseState::TcpCloseState(SocketInternal *socket) : TcpState(socket)
 {
@@ -7,5 +9,13 @@ TcpCloseState::TcpCloseState(SocketInternal *socket) : TcpState(socket)
 
 void TcpCloseState::passiveOpen(SkBuffer *skBuffer)
 {
-	socket->setTcpState();
+	socket->setTcpState(new TcpListenState(socket));
+}
+
+void TcpCloseState::activeOpen(SkBuffer *skBuffer) 
+{
+	//TODO ·¢ËÍSYN
+
+	//½øÈëSYN_SENT×´Ì¬
+	socket->setTcpState(new TcpSynSentState(socket));
 }

@@ -5,7 +5,8 @@
 
 class TcpListenState : public TcpState
 {
-
+public:
+	TcpListenState(SocketInternal *socket);
 };
 
 #endif

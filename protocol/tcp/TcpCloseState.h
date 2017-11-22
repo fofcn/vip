@@ -9,6 +9,7 @@ public:
 	TcpCloseState(SocketInternal *socket);
 
 	virtual void passiveOpen(SkBuffer *skBuffer);
+	virtual void activeOpen(SkBuffer *skBuffer);
 };
 
 #endif

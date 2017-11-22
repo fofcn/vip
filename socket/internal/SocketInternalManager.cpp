@@ -19,7 +19,7 @@ SocketInternalManager *SocketInternalManager::getInstance()
 
 void SocketInternalManager::addConnSocketInternal(SocketInternal &skInternal)
 {
-	connSocketInternals.push_back(skInternal);
+	establishedSockets.push_back(skInternal);
 }
 
 void SocketInternalManager::addListenSocketInternal(SocketInternal &skInternal)
@@ -27,16 +27,32 @@ void SocketInternalManager::addListenSocketInternal(SocketInternal &skInternal)
 	listenSocketInternals.push_back(skInternal);
 }
 
-SocketInternal *SocketInternalManager::findConnSocketInternal(uint srcIp, ushort srcPort, uint dstIp, ushort dstPort)
+SocketInternal *SocketInternalManager::findEstablishedSocket(uint srcIp, ushort srcPort, uint dstIp, ushort dstPort)
 {
-	for (int i = 0; i < connSocketInternals.size(); i++)
+	for (int i = 0; i < establishedSockets.size(); i++)
 	{
-		if (connSocketInternals[i].getSrcIp() == srcIp && 
-			connSocketInternals[i].getSrcPort() == srcPort &&
-			connSocketInternals[i].getDstIp() == dstIp &&
-			connSocketInternals[i].getDstPort() == dstPort)
+		if (establishedSockets[i].getSrcIp() == srcIp && 
+			establishedSockets[i].getSrcPort() == srcPort &&
+			establishedSockets[i].getDstIp() == dstIp &&
+			establishedSockets[i].getDstPort() == dstPort)
 		{
-			return &connSocketInternals[i];
+			return &establishedSockets[i];
+		}
+	}
+
+	return nullptr;
+}
+
+SocketInternal *SocketInternalManager::findTimewaitSocket(uint srcIp, ushort srcPort, uint dstIp, ushort dstPort)
+{
+	for (int i = 0; i < timewaitSockets.size(); i++)
+	{
+		if (timewaitSockets[i].getSrcIp() == srcIp &&
+			timewaitSockets[i].getSrcPort() == srcPort &&
+			timewaitSockets[i].getDstIp() == dstIp &&
+			timewaitSockets[i].getDstPort() == dstPort)
+		{
+			return &timewaitSockets[i];
 		}
 	}
 
